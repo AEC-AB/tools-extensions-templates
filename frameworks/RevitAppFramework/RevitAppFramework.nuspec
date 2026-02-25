@@ -9,6 +9,7 @@
 		<description>RevitAppFramework is a framework for building Revit add-ins using MVVM and WPF.</description>
 		<authors>AEC</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<readme>README.md</readme>
 		<tags>Revit wpf Assistant</tags>
 		<dependencies>
 				<dependency id="MVVMFluent.Wpf" version="0.0.2" />
@@ -16,6 +17,7 @@
 		</dependencies>
 	</metadata>	
 	<files>
+		<file src="README.md" target="" />
 		<file src="**/*.cs" target="contentFiles/cs/$TargetFramework$/RevitAppFramework/" exclude="obj/**" />
 	</files>
 </package>
