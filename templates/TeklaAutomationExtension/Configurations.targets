@@ -6,7 +6,7 @@
     <DebugType>portable</DebugType>
     <Nullable>enable</Nullable>
     <NoWarn>NU1701</NoWarn>
-    <Configurations>Debug;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Debug 2025;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024;Release 2025</Configurations>
+    <Configurations>Debug;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024</Configurations>
   </PropertyGroup>
 
   <Choose>
@@ -15,7 +15,7 @@
         <TargetFramework>net48</TargetFramework>
         <MainTeklaVersion>2020</MainTeklaVersion>
         <TeklaApiVersion>2020.0.3</TeklaApiVersion>
-        <DefineConstants>T2020;T2020_OR_GREATER;T2020_OR_LESS;T2021_OR_LESS;T2022_OR_LESS;T2023_OR_LESS;T2024_OR_LESS;T2025_OR_LESS</DefineConstants>
+        <DefineConstants>T2020;T2020_OR_GREATER;T2020_OR_LESS;T2021_OR_LESS;T2022_OR_LESS;T2023_OR_LESS;T2024_OR_LESS</DefineConstants>
       </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="TeklaOpenAPI" Version="$(TeklaApiVersion)">
@@ -29,7 +29,7 @@
         <TargetFramework>net48</TargetFramework>
         <MainTeklaVersion>2021</MainTeklaVersion>
         <TeklaApiVersion>2021.0.0</TeklaApiVersion>
-        <DefineConstants>T2021;T2020_OR_GREATER;T2021_OR_GREATER;T2021_OR_LESS;T2022_OR_LESS;T2023_OR_LESS;T2024_OR_LESS;T2025_OR_LESS</DefineConstants>
+        <DefineConstants>T2021;T2020_OR_GREATER;T2021_OR_GREATER;T2021_OR_LESS;T2022_OR_LESS;T2023_OR_LESS;T2024_OR_LESS</DefineConstants>
       </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Tekla.Application.Library" Version="$(TeklaApiVersion)">
@@ -71,7 +71,7 @@
         <TargetFramework>net48</TargetFramework>
         <MainTeklaVersion>2022</MainTeklaVersion>
         <TeklaApiVersion>2022.0.10715</TeklaApiVersion>
-        <DefineConstants>T2022;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2022_OR_LESS;T2023_OR_LESS;T2024_OR_LESS;T2025_OR_LESS</DefineConstants>
+        <DefineConstants>T2022;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2022_OR_LESS;T2023_OR_LESS;T2024_OR_LESS</DefineConstants>
       </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Tekla.Application.Library" Version="$(TeklaApiVersion)">
@@ -85,7 +85,7 @@
         <TargetFramework>net48</TargetFramework>
         <MainTeklaVersion>2023</MainTeklaVersion>
         <TeklaApiVersion>2023.0.1</TeklaApiVersion>
-        <DefineConstants>T2023;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2023_OR_GREATER;T2023_OR_LESS;T2024_OR_LESS;T2025_OR_LESS</DefineConstants>
+        <DefineConstants>T2023;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2023_OR_GREATER;T2023_OR_LESS;T2024_OR_LESS</DefineConstants>
       </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Tekla.Application.Library" Version="$(TeklaApiVersion)">
@@ -99,21 +99,7 @@
         <TargetFramework>net48</TargetFramework>
         <MainTeklaVersion>2024</MainTeklaVersion>
         <TeklaApiVersion>2024.0.4</TeklaApiVersion>
-        <DefineConstants>T2024;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2023_OR_GREATER;T2024_OR_GREATER;T2024_OR_LESS;T2025_OR_LESS</DefineConstants>
-      </PropertyGroup>
-    <ItemGroup>
-      <PackageReference Include="Tekla.Application.Library" Version="$(TeklaApiVersion)">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>compile</IncludeAssets>
-      </PackageReference>
-    </ItemGroup>
-    </When>
-    <When Condition="$(Configuration.Contains('2025')) or $([System.String]::Equals('$(MainTeklaVersion)', '2025'))">
-      <PropertyGroup>
-        <TargetFramework>net48</TargetFramework>
-        <MainTeklaVersion>2025</MainTeklaVersion>
-        <TeklaApiVersion>2025.0.0</TeklaApiVersion>
-        <DefineConstants>T2025;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2023_OR_GREATER;T2024_OR_GREATER;T2025_OR_GREATER;T2025_OR_LESS</DefineConstants>
+        <DefineConstants>T2024;T2020_OR_GREATER;T2021_OR_GREATER;T2022_OR_GREATER;T2023_OR_GREATER;T2024_OR_GREATER;T2024_OR_LESS</DefineConstants>
       </PropertyGroup>
     <ItemGroup>
       <PackageReference Include="Tekla.Application.Library" Version="$(TeklaApiVersion)">
@@ -137,15 +123,26 @@
   </PropertyGroup>
 
 
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net48'">
+      <ItemGroup>
+        <Reference Include="System.ComponentModel.DataAnnotations" />
+        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="PolySharp" Version="1.14.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+  </Choose>
+
   <ItemGroup>
     <PackageReference Include="CW.Assistant.Extensions.Tekla.$(MainTeklaVersion)" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
-
-    <PackageReference Include="PolySharp" Version="1.14.1" Condition="'$(TargetFramework)' == 'net48'">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 

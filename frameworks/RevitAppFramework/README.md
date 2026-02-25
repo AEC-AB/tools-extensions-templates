@@ -134,7 +134,7 @@ Apply global styles/resources in XAML:
 ## Dependencies
 
 - WPF-UI
-- MVVMFluent.Wpf
+- MVVMFluent.WPF
 - Microsoft.Extensions.DependencyInjection
 
 ## License
