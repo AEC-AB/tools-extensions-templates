@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<PropertyGroup>
-		<PackageId>RevitAppFramework.$(MainRevitVersion)</PackageId>
+		<PackageId>CW.RevitAppFramework.$(MainRevitVersion)</PackageId>
 		<AssemblyName>RevitAppFramework.$(MainRevitVersion)</AssemblyName>
 		<NuspecProperties>PackageId=$(PackageId);PackageVersion=$(PackageVersion);TargetFramework=$(TargetFramework)</NuspecProperties>
 		<NuspecFile>RevitAppFramework.nuspec</NuspecFile>

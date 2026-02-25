@@ -119,7 +119,7 @@
 			<IncludeAssets>compile</IncludeAssets>
 		</PackageReference>
 
-		<PackageReference Include="RevitAppFramework.$(MainRevitVersion)" Version="1.*">
+		<PackageReference Include="CW.RevitAppFramework.$(MainRevitVersion)" Version="1.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
