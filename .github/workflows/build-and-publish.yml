@@ -35,99 +35,49 @@ env:
   NUGET_SOURCE: https://api.nuget.org/v3/index.json
 
 jobs:
-  build_templates:
-    name: Build Assistant.Extensions.Templates
-    runs-on: windows-2022
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v3
-        with:
-          versionSpec: 6.x
-
-      - name: Execute GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v3
-
-      - name: Restore dependencies
-        run: dotnet restore Assistant.Extensions.Templates.csproj
-
-      - name: Build project
-        run: dotnet build Assistant.Extensions.Templates.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
-
-      - name: Pack prerelease
-        run: >-
-          dotnet pack Assistant.Extensions.Templates.csproj
-          --no-build
-          --configuration $env:BUILD_CONFIGURATION
-          --output artifacts/prerelease
-          /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
-          /p:Version=${{ steps.gitversion.outputs.semVer }}
-
-      - name: Pack stable
-        run: >-
-          dotnet pack Assistant.Extensions.Templates.csproj
-          --no-build
-          --configuration $env:BUILD_CONFIGURATION
-          --output artifacts/release/public
-          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}
-          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
-
-      - name: NuGet login
-        if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish_prerelease || inputs.publish_stable) }}
-        uses: NuGet/login@v1
-        id: login
-        with:
-          user: ${{ secrets.NUGET_USER }}
-
-      - name: Publish prerelease to nuget.org
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_prerelease }}
-        run: dotnet nuget push "artifacts/prerelease/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
-
-      - name: Publish stable to nuget.org
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_stable }}
-        run: dotnet nuget push "artifacts/release/public/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
-
-      - name: Upload stable artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: templates-stable-packages
-          path: artifacts/release/public/*.nupkg
-          if-no-files-found: error
-
-  build_revit_framework:
-    name: Build RevitAppFramework
+  build_packages:
+    name: Build And Pack ${{ matrix.package_name }}
     runs-on: windows-2022
     strategy:
       fail-fast: false
       matrix:
         include:
+          - package_name: templates
+            package_type: templates
           - revit_version: "2019"
             framework: net48
+            package_name: revit-framework-2019
+            package_type: revit
           - revit_version: "2020"
             framework: net48
+            package_name: revit-framework-2020
+            package_type: revit
           - revit_version: "2021"
             framework: net48
+            package_name: revit-framework-2021
+            package_type: revit
           - revit_version: "2022"
             framework: net48
+            package_name: revit-framework-2022
+            package_type: revit
           - revit_version: "2023"
             framework: net48
+            package_name: revit-framework-2023
+            package_type: revit
           - revit_version: "2024"
             framework: net48
+            package_name: revit-framework-2024
+            package_type: revit
           - revit_version: "2025"
             framework: net8.0-windows7.0
+            package_name: revit-framework-2025
+            package_type: revit
           - revit_version: "2026"
             framework: net8.0-windows7.0
+            package_name: revit-framework-2026
+            package_type: revit
+          - package_name: revit-separation-analyzer
+            package_type: analyzer
 
     steps:
       - name: Checkout
@@ -149,148 +99,110 @@ jobs:
         id: gitversion
         uses: gittools/actions/gitversion/execute@v3
 
-      - name: Restore dependencies
-        run: dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config
+      - name: Build and pack package
+        shell: pwsh
+        run: |
+          switch ("${{ matrix.package_type }}") {
+            "templates" {
+              dotnet restore Assistant.Extensions.Templates.csproj
+              dotnet build Assistant.Extensions.Templates.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
 
-      - name: Build Revit ${{ matrix.revit_version }}
-        run: >-
-          dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj
-          --configuration Release${{ matrix.revit_version }}
-          --framework ${{ matrix.framework }}
-          --no-restore
+              dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+            }
 
-      - name: Pack prerelease - Revit ${{ matrix.revit_version }}
-        run: >-
-          dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj
-          --no-build
-          --configuration Release${{ matrix.revit_version }}
-          --output artifacts/prerelease/${{ matrix.revit_version }}
-          /p:TargetFramework=${{ matrix.framework }}
-          /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
-          /p:Version=${{ steps.gitversion.outputs.semVer }}
+            "revit" {
+              dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config
+              dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration Release${{ matrix.revit_version }} --framework ${{ matrix.framework }} --no-restore
 
-      - name: Pack stable - Revit ${{ matrix.revit_version }}
-        run: >-
-          dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj
-          --no-build
-          --configuration Release${{ matrix.revit_version }}
-          --output artifacts/release/public/${{ matrix.revit_version }}
-          /p:TargetFramework=${{ matrix.framework }}
-          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}
-          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/prerelease /p:TargetFramework=${{ matrix.framework }} /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/release/public /p:TargetFramework=${{ matrix.framework }} /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+            }
 
-      - name: NuGet login
-        if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish_prerelease || inputs.publish_stable) }}
-        uses: NuGet/login@v1
-        id: login
-        with:
-          user: ${{ secrets.NUGET_USER }}
+            "analyzer" {
+              dotnet restore analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
+              Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
+                dotnet restore $_.FullName
+              }
 
-      - name: Publish prerelease to nuget.org - Revit ${{ matrix.revit_version }}
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_prerelease }}
-        run: dotnet nuget push "artifacts/prerelease/${{ matrix.revit_version }}/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
+              dotnet build analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
+              Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
+                dotnet build $_.FullName --configuration $env:BUILD_CONFIGURATION --no-restore
+              }
 
-      - name: Publish stable to nuget.org - Revit ${{ matrix.revit_version }}
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_stable }}
-        run: dotnet nuget push "artifacts/release/public/${{ matrix.revit_version }}/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
+              Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
+                dotnet test $_.FullName --configuration $env:BUILD_CONFIGURATION --no-build
+              }
 
-      - name: Upload stable artifacts - Revit ${{ matrix.revit_version }}
+              dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+            }
+
+            default {
+              throw "Unsupported package type: ${{ matrix.package_type }}"
+            }
+          }
+
+      - name: Upload prerelease artifacts - ${{ matrix.package_name }}
         uses: actions/upload-artifact@v4
         with:
-          name: revit-framework-stable-${{ matrix.revit_version }}
-          path: artifacts/release/public/${{ matrix.revit_version }}/*.nupkg
+          name: ${{ matrix.package_name }}-prerelease-packages
+          path: artifacts/prerelease/*.nupkg
           if-no-files-found: error
 
-  build_revit_separation_analyzer:
-    name: Build RevitSeparationAnalyzer
-    runs-on: windows-2022
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Setup GitVersion
-        uses: gittools/actions/gitversion/setup@v3
-        with:
-          versionSpec: 6.x
-
-      - name: Execute GitVersion
-        id: gitversion
-        uses: gittools/actions/gitversion/execute@v3
-
-      - name: Restore analyzer project
-        run: dotnet restore analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
-
-      - name: Restore test projects
-        shell: pwsh
-        run: |
-          Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
-            dotnet restore $_.FullName
-          }
-
-      - name: Build analyzer project
-        run: >-
-          dotnet build analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
-          --configuration $env:BUILD_CONFIGURATION
-          --no-restore
-
-      - name: Build test projects
-        shell: pwsh
-        run: |
-          Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
-            dotnet build $_.FullName --configuration $env:BUILD_CONFIGURATION --no-restore
-          }
-
-      - name: Run analyzer tests
-        shell: pwsh
-        run: |
-          Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
-            dotnet test $_.FullName --configuration $env:BUILD_CONFIGURATION --no-build
-          }
-
-      - name: Pack prerelease
-        run: >-
-          dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
-          --no-build
-          --configuration $env:BUILD_CONFIGURATION
-          --output artifacts/prerelease
-          /p:PackageVersion=${{ steps.gitversion.outputs.nuGetVersionV2 }}
-          /p:Version=${{ steps.gitversion.outputs.semVer }}
-
-      - name: Pack stable
-        run: >-
-          dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
-          --no-build
-          --configuration $env:BUILD_CONFIGURATION
-          --output artifacts/release/public
-          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}
-          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
-
-      - name: NuGet login
-        if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish_prerelease || inputs.publish_stable) }}
-        uses: NuGet/login@v1
-        id: login
-        with:
-          user: ${{ secrets.NUGET_USER }}
-
-      - name: Publish prerelease to nuget.org
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_prerelease }}
-        run: dotnet nuget push "artifacts/prerelease/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
-
-      - name: Publish stable to nuget.org
-        if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_stable }}
-        run: dotnet nuget push "artifacts/release/public/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
-
-      - name: Upload stable artifacts
+      - name: Upload stable artifacts - ${{ matrix.package_name }}
         uses: actions/upload-artifact@v4
         with:
-          name: analyzer-stable-packages
+          name: ${{ matrix.package_name }}-stable-packages
           path: artifacts/release/public/*.nupkg
           if-no-files-found: error
+
+  publish_packages:
+    name: Publish Packages
+    needs: build_packages
+    runs-on: windows-2022
+    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish_prerelease || inputs.publish_stable) }}
+
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: NuGet login
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }}
+
+      - name: Download prerelease artifacts
+        if: ${{ inputs.publish_prerelease }}
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-prerelease-packages'
+          path: artifacts/prerelease
+          merge-multiple: true
+
+      - name: Download stable artifacts
+        if: ${{ inputs.publish_stable }}
+        uses: actions/download-artifact@v4
+        with:
+          pattern: '*-stable-packages'
+          path: artifacts/release/public
+          merge-multiple: true
+
+      - name: Publish prerelease to nuget.org
+        if: ${{ inputs.publish_prerelease }}
+        shell: pwsh
+        run: |
+          Get-ChildItem artifacts/prerelease -Recurse -Filter *.nupkg | ForEach-Object {
+            dotnet nuget push $_.FullName --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
+          }
+
+      - name: Publish stable to nuget.org
+        if: ${{ inputs.publish_stable }}
+        shell: pwsh
+        run: |
+          Get-ChildItem artifacts/release/public -Recurse -Filter *.nupkg | ForEach-Object {
+            dotnet nuget push $_.FullName --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
+          }
