@@ -13,21 +13,27 @@
     <IncludeContentInPack>true</IncludeContentInPack>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <ContentTargetFolders>content</ContentTargetFolders>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**;templates\_shared\**" />
+    <Content Include="templates\**\*"
+      Exclude="templates\**\bin\**;templates\**\obj\**;templates\_shared\**" />
     <Compile Remove="**\*" />
+    <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
 
   <Target Name="SyncUiCommonInstructions" BeforeTargets="Pack">
     <ItemGroup>
-      <TemplateInstructionRoots Include="templates\**\.github\instructions\platform.instructions.md" Exclude="templates\_shared\**" />
-      <UiCommonDestinations Include="@(TemplateInstructionRoots->'%(RootDir)%(Directory)ui-common.instructions.md')" />
-      <UiCommonSources Include="@(UiCommonDestinations->'$(MSBuildProjectDirectory)\templates\_shared\.github\instructions\ui-common.instructions.md')" />
+      <TemplateInstructionRoots Include="templates\**\.github\instructions\platform.instructions.md"
+        Exclude="templates\_shared\**" />
+      <UiCommonDestinations
+        Include="@(TemplateInstructionRoots->'%(RootDir)%(Directory)ui-common.instructions.md')" />
+      <UiCommonSources
+        Include="@(UiCommonDestinations->'$(MSBuildProjectDirectory)\templates\_shared\.github\instructions\ui-common.instructions.md')" />
     </ItemGroup>
 
     <Copy SourceFiles="@(UiCommonSources)"
-          DestinationFiles="@(UiCommonDestinations)"
-          SkipUnchangedFiles="true" />
+      DestinationFiles="@(UiCommonDestinations)"
+      SkipUnchangedFiles="true" />
   </Target>
 </Project>
