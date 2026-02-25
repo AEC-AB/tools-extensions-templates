@@ -45,35 +45,27 @@ jobs:
           - package_name: templates
             package_type: templates
           - revit_version: "2019"
-            framework: net48
             package_name: revit-framework-2019
             package_type: revit
           - revit_version: "2020"
-            framework: net48
             package_name: revit-framework-2020
             package_type: revit
           - revit_version: "2021"
-            framework: net48
             package_name: revit-framework-2021
             package_type: revit
           - revit_version: "2022"
-            framework: net48
             package_name: revit-framework-2022
             package_type: revit
           - revit_version: "2023"
-            framework: net48
             package_name: revit-framework-2023
             package_type: revit
           - revit_version: "2024"
-            framework: net48
             package_name: revit-framework-2024
             package_type: revit
           - revit_version: "2025"
-            framework: net8.0
             package_name: revit-framework-2025
             package_type: revit
           - revit_version: "2026"
-            framework: net8.0
             package_name: revit-framework-2026
             package_type: revit
           - package_name: revit-separation-analyzer
@@ -113,10 +105,10 @@ jobs:
 
             "revit" {
               dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config
-              dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration Release${{ matrix.revit_version }} --framework ${{ matrix.framework }} --no-restore
+              dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration Release${{ matrix.revit_version }} --no-restore
 
-              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/prerelease /p:TargetFramework=${{ matrix.framework }} /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/release/public /p:TargetFramework=${{ matrix.framework }} /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
             }
 
             "analyzer" {
