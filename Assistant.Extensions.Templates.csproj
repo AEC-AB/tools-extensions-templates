@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageType>Template</PackageType>
-    <PackageId>CW.Assistant.Extension.Templates</PackageId>
+    <PackageId>CW.Assistant.Extensions.Templates</PackageId>
     <Title>Tools by AEC Assistant Extension Templates</Title>
     <Authors>Tools by AEC</Authors>
     <Description>Templates to use when creating an extension for Assistant by AEC.</Description>
