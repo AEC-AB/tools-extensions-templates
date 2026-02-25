@@ -15,15 +15,10 @@ on:
       - develop
   workflow_dispatch:
     inputs:
-      publish_prerelease:
-        description: Publish prerelease packages to nuget.org
+      publish_packages:
+        description: Publish built packages to nuget.org
         required: false
         default: true
-        type: boolean
-      publish_stable:
-        description: Publish stable packages to nuget.org
-        required: false
-        default: false
         type: boolean
 
 permissions:
@@ -79,8 +74,7 @@ jobs:
           Invoke-Dotnet restore Assistant.Extensions.Templates.csproj
           Invoke-Dotnet build Assistant.Extensions.Templates.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
 
-          Invoke-Dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-          Invoke-Dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+          Invoke-Dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/packages /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
 
           $revitVersions = @("2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026")
 
@@ -90,8 +84,7 @@ jobs:
             Invoke-Dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config /p:Configuration="$revitConfiguration"
             Invoke-Dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration "$revitConfiguration" --no-restore
 
-            Invoke-Dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-            Invoke-Dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+            Invoke-Dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/packages /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
           }
 
           Invoke-Dotnet restore analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
@@ -108,28 +101,20 @@ jobs:
             Invoke-Dotnet test $_.FullName --configuration $env:BUILD_CONFIGURATION --no-build
           }
 
-          Invoke-Dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-          Invoke-Dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+          Invoke-Dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/packages /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
 
-      - name: Upload prerelease artifacts
+      - name: Upload package artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: prerelease-packages
-          path: artifacts/prerelease/*.nupkg
-          if-no-files-found: error
-
-      - name: Upload stable artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: stable-packages
-          path: artifacts/release/public/*.nupkg
+          name: packages
+          path: artifacts/packages/*.nupkg
           if-no-files-found: error
 
   publish_packages:
     name: Publish Packages
     needs: build_packages
     runs-on: windows-2022
-    if: ${{ github.event_name == 'workflow_dispatch' && (inputs.publish_prerelease || inputs.publish_stable) }}
+    if: ${{ github.event_name == 'workflow_dispatch' && inputs.publish_packages }}
 
     steps:
       - name: Setup .NET
@@ -143,34 +128,16 @@ jobs:
         with:
           user: ${{ secrets.NUGET_USER }}
 
-      - name: Download prerelease artifacts
-        if: ${{ inputs.publish_prerelease }}
+      - name: Download package artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: 'prerelease-packages'
-          path: artifacts/prerelease
+          pattern: 'packages'
+          path: artifacts/packages
           merge-multiple: true
 
-      - name: Download stable artifacts
-        if: ${{ inputs.publish_stable }}
-        uses: actions/download-artifact@v4
-        with:
-          pattern: 'stable-packages'
-          path: artifacts/release/public
-          merge-multiple: true
-
-      - name: Publish prerelease to nuget.org
-        if: ${{ inputs.publish_prerelease }}
+      - name: Publish packages to nuget.org
         shell: pwsh
         run: |
-          Get-ChildItem artifacts/prerelease -Recurse -Filter *.nupkg | ForEach-Object {
-            dotnet nuget push $_.FullName --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
-          }
-
-      - name: Publish stable to nuget.org
-        if: ${{ inputs.publish_stable }}
-        shell: pwsh
-        run: |
-          Get-ChildItem artifacts/release/public -Recurse -Filter *.nupkg | ForEach-Object {
+          Get-ChildItem artifacts/packages -Recurse -Filter *.nupkg | ForEach-Object {
             dotnet nuget push $_.FullName --source $env:NUGET_SOURCE --api-key "${{ steps.login.outputs.NUGET_API_KEY }}" --skip-duplicate
           }
