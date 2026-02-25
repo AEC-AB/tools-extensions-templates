@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "AEC",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "classifications": [
+    "AutoCAD",
+    "Tools by AEC",
+    "Assistant Extension"
+  ],
+  "identity": "CW.Assistant.AutoCAD.AutomationExtension",
+  "name": "AutoCAD Automation Extension for Assistant",
+  "shortName": "cwacadae",
+  "sourceName": "AutoCADAutomationExtension"
+}

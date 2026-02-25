@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "AEC",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "classifications": [
+    "Revit",
+    "Tools by AEC",
+    "Assistant Extension"
+  ],
+  "identity": "CW.Assistant.Revit.AppExtension",
+  "name": "Revit App Extension for Assistant",
+  "shortName": "cwrvtapp",
+  "sourceName": "RevitAppExtension"
+}

@@ -1,0 +1,262 @@
+name: Build And Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_prerelease:
+        description: Publish prerelease packages to nuget.org
+        required: false
+        default: true
+        type: boolean
+      publish_stable:
+        description: Publish stable packages to nuget.org
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+env:
+  BUILD_CONFIGURATION: Release
+  NUGET_SOURCE: https://api.nuget.org/v3/index.json
+
+jobs:
+  build_templates:
+    name: Build Assistant.Extensions.Templates
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v3
+        with:
+          versionSpec: 6.x
+
+      - name: Execute GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v3
+
+      - name: Restore dependencies
+        run: dotnet restore Assistant.Extensions.Templates.csproj
+
+      - name: Build project
+        run: dotnet build Assistant.Extensions.Templates.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
+
+      - name: Pack prerelease
+        run: >-
+          dotnet pack Assistant.Extensions.Templates.csproj
+          --no-build
+          --configuration $env:BUILD_CONFIGURATION
+          --output artifacts/prerelease
+          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}-preview-${{ github.run_number }}
+          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+
+      - name: Pack stable
+        run: >-
+          dotnet pack Assistant.Extensions.Templates.csproj
+          --no-build
+          --configuration $env:BUILD_CONFIGURATION
+          --output artifacts/release/public
+          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}
+          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+
+      - name: Publish prerelease to nuget.org
+        if: ${{ inputs.publish_prerelease }}
+        run: dotnet nuget push "artifacts/prerelease/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate
+
+      - name: Publish stable to nuget.org
+        if: ${{ inputs.publish_stable }}
+        run: dotnet nuget push "artifacts/release/public/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate
+
+      - name: Upload stable artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: templates-stable-packages
+          path: artifacts/release/public/*.nupkg
+          if-no-files-found: error
+
+  build_revit_framework:
+    name: Build RevitAppFramework
+    runs-on: windows-2022
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - revit_version: "2019"
+            framework: net48
+          - revit_version: "2020"
+            framework: net48
+          - revit_version: "2021"
+            framework: net48
+          - revit_version: "2022"
+            framework: net48
+          - revit_version: "2023"
+            framework: net48
+          - revit_version: "2024"
+            framework: net48
+          - revit_version: "2025"
+            framework: net8.0-windows7.0
+          - revit_version: "2026"
+            framework: net8.0-windows7.0
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v3
+        with:
+          versionSpec: 6.x
+
+      - name: Execute GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v3
+
+      - name: Restore dependencies
+        run: dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config
+
+      - name: Build Revit ${{ matrix.revit_version }}
+        run: >-
+          dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj
+          --configuration Release${{ matrix.revit_version }}
+          --framework ${{ matrix.framework }}
+          --no-restore
+
+      - name: Pack prerelease - Revit ${{ matrix.revit_version }}
+        run: >-
+          dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj
+          --no-build
+          --configuration Release${{ matrix.revit_version }}
+          --output artifacts/prerelease/${{ matrix.revit_version }}
+          /p:TargetFramework=${{ matrix.framework }}
+          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}-preview-${{ github.run_number }}
+          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+
+      - name: Pack stable - Revit ${{ matrix.revit_version }}
+        run: >-
+          dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj
+          --no-build
+          --configuration Release${{ matrix.revit_version }}
+          --output artifacts/release/public/${{ matrix.revit_version }}
+          /p:TargetFramework=${{ matrix.framework }}
+          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}
+          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+
+      - name: Publish prerelease to nuget.org - Revit ${{ matrix.revit_version }}
+        if: ${{ inputs.publish_prerelease }}
+        run: dotnet nuget push "artifacts/prerelease/${{ matrix.revit_version }}/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate
+
+      - name: Publish stable to nuget.org - Revit ${{ matrix.revit_version }}
+        if: ${{ inputs.publish_stable }}
+        run: dotnet nuget push "artifacts/release/public/${{ matrix.revit_version }}/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate
+
+      - name: Upload stable artifacts - Revit ${{ matrix.revit_version }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: revit-framework-stable-${{ matrix.revit_version }}
+          path: artifacts/release/public/${{ matrix.revit_version }}/*.nupkg
+          if-no-files-found: error
+
+  build_revit_separation_analyzer:
+    name: Build RevitSeparationAnalyzer
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+
+      - name: Setup GitVersion
+        uses: gittools/actions/gitversion/setup@v3
+        with:
+          versionSpec: 6.x
+
+      - name: Execute GitVersion
+        id: gitversion
+        uses: gittools/actions/gitversion/execute@v3
+
+      - name: Restore analyzer project
+        run: dotnet restore analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
+
+      - name: Restore test projects
+        shell: pwsh
+        run: |
+          Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
+            dotnet restore $_.FullName
+          }
+
+      - name: Build analyzer project
+        run: >-
+          dotnet build analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
+          --configuration $env:BUILD_CONFIGURATION
+          --no-restore
+
+      - name: Build test projects
+        shell: pwsh
+        run: |
+          Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
+            dotnet build $_.FullName --configuration $env:BUILD_CONFIGURATION --no-restore
+          }
+
+      - name: Run analyzer tests
+        shell: pwsh
+        run: |
+          Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
+            dotnet test $_.FullName --configuration $env:BUILD_CONFIGURATION --no-build
+          }
+
+      - name: Pack prerelease
+        run: >-
+          dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
+          --no-build
+          --configuration $env:BUILD_CONFIGURATION
+          --output artifacts/prerelease
+          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}-preview-${{ github.run_number }}
+          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+
+      - name: Pack stable
+        run: >-
+          dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
+          --no-build
+          --configuration $env:BUILD_CONFIGURATION
+          --output artifacts/release/public
+          /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }}
+          /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+
+      - name: Publish prerelease to nuget.org
+        if: ${{ inputs.publish_prerelease }}
+        run: dotnet nuget push "artifacts/prerelease/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate
+
+      - name: Publish stable to nuget.org
+        if: ${{ inputs.publish_stable }}
+        run: dotnet nuget push "artifacts/release/public/*.nupkg" --source $env:NUGET_SOURCE --api-key "${{ secrets.NUGET_API_KEY }}" --skip-duplicate
+
+      - name: Upload stable artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: analyzer-stable-packages
+          path: artifacts/release/public/*.nupkg
+          if-no-files-found: error

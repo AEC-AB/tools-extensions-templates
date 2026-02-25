@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "AEC",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "classifications": [
+    "Tekla",
+    "Tools by AEC",
+    "Assistant Extension"
+  ],
+  "identity": "CW.Assistant.Tekla.AutomationExtension",
+  "name": "Tekla Automation Extension for Assistant",
+  "shortName": "cwtae",
+  "sourceName": "TeklaAutomationExtension"
+}

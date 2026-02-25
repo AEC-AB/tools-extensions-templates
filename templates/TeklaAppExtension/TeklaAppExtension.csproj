@@ -1,0 +1,56 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ExtensionId>TeklaAppExtension</ExtensionId>
+	<Authors>Tools by AEC</Authors>
+    <Version>0.0.1</Version>
+    <Title>TeklaAppExtension</Title>
+    <Description>TeklaAppExtension Description</Description>
+    <PackageTags>Tekla;Assistant;Extension;App</PackageTags>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIconUrl></PackageIconUrl>
+	<MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2024</MainTeklaVersion>
+    <!-- 
+		Adjust MainTeklaVersion to get IntelliSense for the correct version do a 
+		dotnet restore to restore the correct nuget packages for the selected Tekla version.
+		-->
+    
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+	<Choose>
+		<When Condition="'$(Configuration)' == 'Design'">
+			<PropertyGroup>
+				<OutputType>WinExe</OutputType>
+				<XamlDebuggingInformation>True</XamlDebuggingInformation>
+				<MainTeklaVersion>2023</MainTeklaVersion>
+			</PropertyGroup>
+		</When>
+		<Otherwise>
+			<!-- For library mode, exclude App.xaml entirely -->
+			<PropertyGroup>
+				<OutputType>Library</OutputType>
+			</PropertyGroup>
+			<ItemGroup>
+				<ApplicationDefinition Remove="App.xaml" />
+				<Page Remove="App.xaml" />
+				<Compile Remove="App.xaml.cs" />
+				<None Include="App.xaml">
+				  <Generator>MSBuild:Compile</Generator>
+				</None>
+				<None Include="App.xaml.cs" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+
+
+	<Import Project=".\Configurations.targets" />
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="App.xaml" />
+  </ItemGroup>
+
+</Project>

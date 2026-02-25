@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="TeklaAppExtension.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TeklaAppExtension.Views"
+             mc:Ignorable="d"
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:viewmodels="clr-namespace:TeklaAppExtension.ViewModels"
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:resources="clr-namespace:TeklaAppExtension.Framework.Resources" 
+             resources:ResourceInjectionBehavior.InjectResources="True"
+              d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}">
+    <Grid Margin="10">
+        <!-- Grid layout with 3 rows for different sections and 2 columns for controls and buttons -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <!-- For labels and input fields -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- For buttons -->
+        </Grid.ColumnDefinitions>
+
+        <!-- Document Title Display Section -->
+        <!-- Shows the current document title retrieved from Revit -->
+        <ui:TextBlock VerticalAlignment="Center">
+            <ui:TextBlock FontTypography="BodyStrong" Text="Model Name:" VerticalAlignment="Center"/>
+            <ui:TextBlock Text="{Binding CurrentDocumentTitle}" FontTypography="BodyStrong" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        </ui:TextBlock>
+
+        <!-- Get Document Title Button -->
+        <!-- Demonstrates invoking a read-only Revit API operation through a ViewModel command -->
+        <ui:Button  Content="Get model name"
+                        Margin="5"
+                        Appearance="Primary"
+                        Icon="{ui:SymbolIcon DocumentTextExtract20}"
+                        Command="{Binding GetModelNameCommand}" 
+                        Grid.Column="1"/>
+
+        <!-- Comment Input Field -->
+        <!-- Two-way binding with PropertyChanged update trigger ensures immediate validation -->
+        <!-- IsEnabled binding disables the field when comment operation is running -->
+        <ui:TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                     
+                        Grid.Row="1" 
+                        Margin="5"
+                        IsEnabled="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource InvertedBoolToBoolConverter}}"/>
+
+        <!-- Set Comment Button -->
+        <!-- Demonstrates triggering a Revit transaction through a ViewModel command -->
+        <!-- Visibility toggling demonstrates state-based UI using command properties -->
+        <ui:Button  Content="Set Comment" Command="{Binding SetCommentOnSelectedElementsCommand}" 
+                        Margin="5"    
+                        Appearance="Secondary"
+                        Icon="{ui:SymbolIcon SaveArrowRight20}"
+                        Visibility="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource InvertedBoolToVisibilityConverter}}" 
+                        Grid.Column="1" 
+                        Grid.Row="1"/>
+
+        <!-- Cancel Button -->
+        <!-- Demonstrates cancellation pattern for long-running Revit operations -->
+        <!-- Only visible when an operation is running (opposite visibility from Set Button) -->
+        <ui:Button  Content="Cancel" 
+                        Margin="5"
+                        Command="{Binding SetCommentOnSelectedElementsCommand.CancelCommand}"
+                        Grid.Column="1" 
+                        Appearance="Danger"
+                        Icon="{ui:SymbolIcon ShareScreenStop20}"
+                        Visibility="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Grid.Row="1"/>
+
+        <ui:Button  Content="Delete elements" 
+                        Margin="5"
+                        Command="{Binding DeleteSelectedElementsCommand}"
+                        Grid.Column="1" 
+                        Appearance="Danger"
+                        Icon="{ui:SymbolIcon Delete12}"
+                        Grid.Row="2"/>
+    </Grid>
+</UserControl>

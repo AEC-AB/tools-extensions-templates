@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<ImplicitUsings>false</ImplicitUsings>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageVersion>0.0.1-alpha64</PackageVersion>
+	<Authors>AEC</Authors>
+	<ProjectUrl>https://wiki.toolsbyaec.com</ProjectUrl>
+	<Description>Framework for building extension apps for Assistant by AEC.</Description>
+  </PropertyGroup>
+
+	<Import Project=".\RevitAppFramework.props" />
+
+	<ItemGroup>
+		<PackageReference Include="WPF-UI" Version="4.*" />
+		<PackageReference Include="CW.Assistant.Extensions.Revit.$(MainRevitVersion)" Version="5.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>compile</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="MVVMFluent" Version="0.*">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="PolySharp" Version="1.14.1" Condition="'$(TargetFramework)' == 'net48'">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<PackageId>RevitAppFramework.$(MainRevitVersion)</PackageId>
+		<AssemblyName>RevitAppFramework.$(MainRevitVersion)</AssemblyName>
+		<NuspecProperties>PackageId=$(PackageId);PackageVersion=$(PackageVersion);TargetFramework=$(TargetFramework)</NuspecProperties>
+		<NuspecFile>RevitAppFramework.nuspec</NuspecFile>
+	</PropertyGroup>
+
+</Project>

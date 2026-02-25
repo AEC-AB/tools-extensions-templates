@@ -1,0 +1,73 @@
+steps:
+  - checkout: self
+    fetchDepth: 0 # Required for GitVersion to work properly
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Execute GitVersion'
+    inputs:
+      command: 'custom'
+      custom: 'gitversion'
+      arguments: '/output buildserver'
+    
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore dependencies'
+    inputs:
+      command: 'restore'
+      projects: '$(solution)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build project'
+    inputs:
+      command: 'build'
+      projects: '$(solution)'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Create prerelease NuGet packages'
+    inputs:
+      command: 'custom'
+      custom: 'pack'
+      projects: '$(solution)'
+      arguments: >
+        --no-build
+        --configuration $(buildConfiguration)
+        --output $(prereleaseDir)
+        /p:PackageVersion=$(GitVersion.MajorMinorPatch)-preview-$(Build.BuildId)
+        /p:Version=$(GitVersion.MajorMinorPatch)
+
+  # Create stable package with no prerelease suffix
+  - task: DotNetCoreCLI@2
+    displayName: 'Create Stable NuGet packages'
+    inputs:
+      command: 'custom'
+      custom: 'pack'
+      projects: '$(solution)'
+      arguments: >
+        --no-build
+        --configuration $(buildConfiguration)
+        --output $(stableDir)
+        /p:PackageVersion=$(GitVersion.MajorMinorPatch)
+        /p:Version=$(GitVersion.MajorMinorPatch)
+
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Push prerelease package to public feed'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(prereleaseDir)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '$(feedName)'
+
+  - task: variabledehydration@0
+    displayName: Save variables
+    inputs:
+      prefixes: 'CW_,GITVERSION'
+      outpath: '$(Build.ArtifactStagingDirectory)'
+
+  # Publish stable packages as artifacts for later use in a release pipeline
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish stable NuGet packages as artifacts'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

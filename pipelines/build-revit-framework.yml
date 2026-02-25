@@ -1,0 +1,97 @@
+parameters:
+  - name: revitVersions
+    type: object
+    default:
+      - version: '2019'
+        framework: 'net48'
+      - version: '2020'
+        framework: 'net48'
+      - version: '2021'
+        framework: 'net48'
+      - version: '2022'
+        framework: 'net48'
+      - version: '2023'
+        framework: 'net48'
+      - version: '2024'
+        framework: 'net48'
+      - version: '2025'
+        framework: 'net8.0-windows7.0'
+      - version: '2026'
+        framework: 'net8.0-windows7.0'
+
+steps:
+  - checkout: self
+    fetchDepth: 0 # Required for GitVersion to work properly
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Execute GitVersion'
+    inputs:
+      command: 'custom'
+      custom: 'gitversion'
+      arguments: '/output buildserver'
+  
+  # Restore dependencies once for all configurations
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore dependencies'
+    inputs:
+      command: 'restore'
+      projects: '$(solution)'
+      feedsToUse: 'config'
+      nugetConfigPath: 'nuget.config'
+
+  # Build, pack, and publish for each Revit version
+  - ${{ each revitVersion in parameters.revitVersions }}:
+    - task: DotNetCoreCLI@2
+      displayName: 'Build Revit ${{ revitVersion.version }}'
+      inputs:
+        command: 'build'
+        projects: '$(solution)'
+        arguments: '--configuration Release${{ revitVersion.version }} --framework ${{ revitVersion.framework }}'
+
+
+    # Create prerelease NuGet package for this Revit version
+    - task: DotNetCoreCLI@2
+      displayName: 'Create prerelease NuGet package - Revit ${{ revitVersion.version }}'
+      inputs:
+        command: 'custom'
+        custom: 'pack'
+        projects: '$(solution)'
+        arguments: >
+          --no-build
+          --configuration Release${{ revitVersion.version }}
+          --output $(prereleaseDir)/${{ revitVersion.version }}
+          /p:TargetFramework=${{ revitVersion.framework }}
+          /p:PackageVersion=$(GitVersion.MajorMinorPatch)-preview-$(Build.BuildId)
+          /p:Version=$(GitVersion.MajorMinorPatch)
+
+    # Create stable NuGet package for this Revit version
+    - task: DotNetCoreCLI@2
+      displayName: 'Create stable NuGet package - Revit ${{ revitVersion.version }}'
+      inputs:
+        command: 'custom'
+        custom: 'pack'
+        projects: '$(solution)'
+        arguments: >
+          --no-build
+          --configuration Release${{ revitVersion.version }}
+          --output $(stableDir)/${{ revitVersion.version }}
+          /p:TargetFramework=${{ revitVersion.framework }}
+          /p:PackageVersion=$(GitVersion.MajorMinorPatch)
+          /p:Version=$(GitVersion.MajorMinorPatch)
+
+    # Push prerelease package to public feed
+    - task: DotNetCoreCLI@2
+      displayName: 'Push prerelease package - Revit ${{ revitVersion.version }}'
+      inputs:
+        command: 'push'
+        packagesToPush: '$(prereleaseDir)/${{ revitVersion.version }}/*.nupkg'
+        nuGetFeedType: 'internal'
+        publishVstsFeed: '$(feedName)'
+
+  # Publish all stable packages as artifacts
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish all stable NuGet packages as artifacts'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

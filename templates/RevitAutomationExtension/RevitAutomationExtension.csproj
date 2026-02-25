@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <ExtensionId>RevitAutomationExtension</ExtensionId>
+    <Authors>Tools by AEC</Authors>
+    <Version>0.0.1</Version>
+    <Title>RevitAutomationExtension</Title>
+    <Description>RevitAutomationExtension Description</Description>
+    <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageIconUrl></PackageIconUrl>
+    <!-- 
+    Adjust MainRevitVersion to get IntelliSense for the correct version do a 
+    dotnet restore to restore the correct nuget packages for the selected Revit version.
+    -->
+    <MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2024</MainRevitVersion>
+    <LangVersion>12</LangVersion>
+  </PropertyGroup>
+
+  <Import Project=".\Configurations.targets" />
+
+  <ItemGroup>
+    <None Include="Icon.png" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+</Project>

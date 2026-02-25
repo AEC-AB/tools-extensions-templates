@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "AEC",
+  "tags": {
+    "language": "Python",
+    "type": "project"
+  },
+  "classifications": [
+    "Assistant",
+    "Tools by AEC",
+    "Assistant Script"
+  ],
+  "identity": "CW.Assistant.Python.Assistant.AutomationScript",
+  "name": "Assistant Python Automation Script",
+  "shortName": "cwpyas",
+  "sourceName": "python_automation_script"
+}

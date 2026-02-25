@@ -1,0 +1,33 @@
+﻿<!-- 
+    ViewBindings.xaml - Resource dictionary defining view-viewmodel associations.
+    
+    This resource dictionary is a critical component of the MVVM implementation in this application.
+    It defines data templates that automatically map view models to their corresponding views.
+    
+    When the NavigationView's TargetPageType property is set to a specific view model type,
+    the WPF-UI framework uses these data templates to:
+    
+    1. Create an instance of the appropriate view
+    2. Set its DataContext to the view model instance
+    3. Display it in the navigation content area
+    
+    This approach:
+    - Decouples views from view models for better separation of concerns
+    - Enables automatic view resolution without explicit code in the view models
+    - Supports the navigation system in the main window
+    - Makes it easier to add new pages to the application
+-->
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModels="clr-namespace:RevitAppExtension.ViewModels"
+                    xmlns:views="clr-namespace:RevitAppExtension.Views">
+
+    <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+        <views:HomeView />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type viewModels:AboutViewModel}">
+        <views:AboutView />
+    </DataTemplate>
+
+</ResourceDictionary>

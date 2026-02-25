@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageType>Template</PackageType>
+    <PackageId>CW.Assistant.Extension.Templates</PackageId>
+    <Title>Tools by AEC Assistant Extension Templates</Title>
+    <Authors>Tools by AEC</Authors>
+    <Description>Templates to use when creating an extension for Assistant by AEC.</Description>
+    <PackageTags>dotnet-new;Tools-by-AEC;Assistant-Extensions</PackageTags>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <NoWarn>NU5128</NoWarn>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <ContentTargetFolders>content</ContentTargetFolders>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+    <Compile Remove="**\*" />
+  </ItemGroup>
+</Project>

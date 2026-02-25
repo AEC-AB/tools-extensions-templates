@@ -1,0 +1,98 @@
+﻿<!-- 
+    HomeView.xaml - Primary content view for the RevitAppExtension application.
+    
+    This view demonstrates key patterns for interacting with the Revit API:
+    1. Retrieving information from the current document (document title)
+    2. Modifying elements in the Revit model (setting comments on selected elements)
+    
+    The UI follows MVVM principles:
+    - Text fields are bound to properties in the HomeViewModel
+    - Buttons are bound to IFluentCommand implementations in the ViewModel
+    - UI state changes are controlled by property changes and command states
+    
+    The view demonstrates several important binding patterns:
+    - Two-way binding for user input with UpdateSourceTrigger=PropertyChanged
+    - Command binding with state-dependent UI visibility
+    - Using value converters for conditional visibility
+    - Using WPF-UI controls for modern appearance
+-->
+<UserControl x:Class="RevitAppExtension.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:resources="clr-namespace:RevitAppFramework.Resources"
+             resources:ResourceInjectionBehavior.InjectResources="True"
+             xmlns:viewmodels="clr-namespace:RevitAppExtension.ViewModels" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             d:DataContext="{d:DesignInstance Type=viewmodels:HomeViewModel}">
+    <Grid Margin="10">
+        <!-- Grid layout with 3 rows for different sections and 2 columns for controls and buttons -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>  <!-- For labels and input fields -->
+            <ColumnDefinition Width="Auto"/>  <!-- For buttons -->
+        </Grid.ColumnDefinitions>
+        
+        <!-- Document Title Display Section -->
+        <!-- Shows the current document title retrieved from Revit -->
+        <ui:TextBlock VerticalAlignment="Center">
+            <ui:TextBlock FontTypography="BodyStrong" Text="Document title:" VerticalAlignment="Center"/>
+            <ui:TextBlock Text="{Binding CurrentDocumentTitle}" FontTypography="BodyStrong" VerticalAlignment="Center" Margin="5,0,0,0"/>
+        </ui:TextBlock>
+        
+        <!-- Get Document Title Button -->
+        <!-- Demonstrates invoking a read-only Revit API operation through a ViewModel command -->
+        <ui:Button  Content="Get document title"
+                        Margin="5"
+                        Appearance="Primary"
+                        Icon="{ui:SymbolIcon DocumentTextExtract20}"
+                        Command="{Binding GetCurrentDocumentCommand}" 
+                        Grid.Column="1"/>        
+        
+        <!-- Comment Input Field -->
+        <!-- Two-way binding with PropertyChanged update trigger ensures immediate validation -->
+        <!-- IsEnabled binding disables the field when comment operation is running -->
+        <ui:TextBox Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"                     
+                        Grid.Row="1" 
+                        Margin="5"
+                        IsEnabled="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource InvertedBoolToBoolConverter}}"/>
+
+        <!-- Set Comment Button -->
+        <!-- Demonstrates triggering a Revit transaction through a ViewModel command -->
+        <!-- Visibility toggling demonstrates state-based UI using command properties -->
+        <ui:Button  Content="Set Comment" Command="{Binding SetCommentOnSelectedElementsCommand}" 
+                        Margin="5"    
+                        Appearance="Secondary"
+                        Icon="{ui:SymbolIcon SaveArrowRight20}"
+                        Visibility="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource InvertedBoolToVisibilityConverter}}" 
+                        Grid.Column="1" 
+                        Grid.Row="1"/>
+
+        <!-- Cancel Button -->
+        <!-- Demonstrates cancellation pattern for long-running Revit operations -->
+        <!-- Only visible when an operation is running (opposite visibility from Set Button) -->
+        <ui:Button  Content="Cancel" 
+                        Margin="5"
+                        Command="{Binding SetCommentOnSelectedElementsCommand.CancelCommand}"
+                        Grid.Column="1" 
+                        Appearance="Danger"
+                        Icon="{ui:SymbolIcon ShareScreenStop20}"
+                        Visibility="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource BoolToVisibilityConverter}}"
+                        Grid.Row="1"/>
+
+        <ui:Button  Content="Delete elements" 
+                        Margin="5"
+                        Command="{Binding DeleteSelectedElementsCommand}"
+                        Grid.Column="1" 
+                        Appearance="Danger"
+                        Icon="{ui:SymbolIcon Delete12}"
+                        Grid.Row="2"/>
+    </Grid>
+</UserControl>

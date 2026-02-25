@@ -1,0 +1,40 @@
+trigger: none  # No CI/CD trigger; this pipeline must be run manually
+
+variables:
+    buildConfiguration: 'Release'  # Build configuration
+    outputDir: '$(Build.ArtifactStagingDirectory)'  # Output directory for artifacts
+    prereleaseDir: '$(Build.ArtifactStagingDirectory)/prerelease'  # Directory for prerelease packages
+    stableDir: '$(Build.ArtifactStagingDirectory)/release/public'  # Directory for stable packages
+    feedName: 'f7c2ca28-a7af-4180-a54e-2cfc099d4e0e/8ffb69e0-3eb1-4978-a356-12dec8dff01f'  # Azure Artifacts feed ID
+
+jobs:
+- job: BuildTemplates
+  displayName: 'Build Assistant.Extensions.Templates'
+  pool:
+    name: Default
+    vmImage: 'windows-2022'  # Use Windows 2022 environment for the build
+  variables:
+    solution: '$(Build.SourcesDirectory)/Assistant.Extensions.Templates.csproj'  # Path to the project file
+  steps:
+  - template: pipelines/build-templates.yml  # Reusable build template for this job
+
+- job: BuildRevitFramework
+  displayName: 'Build RevitAppFramework'
+  pool:
+    name: Default
+    vmImage: 'windows-2022'  # Use Windows 2022 environment for the build
+  variables:
+    solution: '$(Build.SourcesDirectory)/frameworks/RevitAppFramework/RevitAppFramework.csproj'  # Path to the solution folder
+  steps:
+  - template: pipelines/build-revit-framework.yml  # Reusable build template for this job
+  
+- job: BuildRevitSeparationAnalyzer
+  displayName: 'Build RevitSeparationAnalyzer'
+  pool:
+    name: Default
+    vmImage: 'windows-2022'  # Use Windows 2022 environment for the build
+  variables:
+    analyzerProject: '$(Build.SourcesDirectory)/analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj'  # Path to the analyzer project
+    testProjects: '$(Build.SourcesDirectory)/analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test/*.csproj'  # Path to the test projects
+  steps:
+  - template: pipelines/build-analyzer.yml  # Reusable build template for this job

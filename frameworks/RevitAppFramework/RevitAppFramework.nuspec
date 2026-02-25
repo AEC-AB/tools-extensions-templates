@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>$PackageId$</id>
+		<version>$PackageVersion$</version>
+		<!-- 👇 Indicates the package is only used at build time, not deploy time -->
+		<developmentDependency>true</developmentDependency>
+		<license type="expression">MIT</license>
+		<description>RevitAppFramework is a framework for building Revit add-ins using MVVM and WPF.</description>
+		<authors>AEC</authors>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<tags>Revit wpf Assistant</tags>
+		<dependencies>
+			<dependency id="MVVMFluent" version="0.0.2" />
+			<dependency id="WPF-UI" version="4.0.2" />
+		</dependencies>
+	</metadata>	
+	<files>
+		<file src="**/*.cs" target="contentFiles/cs/$TargetFramework$/RevitAppFramework/" exclude="obj/**" />
+	</files>
+</package>

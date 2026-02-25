@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "AEC",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "classifications": [
+    "Navisworks",
+    "Tools by AEC",
+    "Assistant Extension"
+  ],
+  "identity": "CW.Assistant.Navisworks.AutomationExtension",
+  "name": "Navisworks Automation Extension for Assistant",
+  "shortName": "cwnwae",
+  "sourceName": "NavisworksAutomationExtension"
+}

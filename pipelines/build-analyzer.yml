@@ -1,0 +1,90 @@
+# filepath: c:\Users\frte\source\repos\Assistant.Extensions.Templates\pipelines\build-analyzer.yml
+steps:
+  - checkout: self
+    fetchDepth: 0 # Required for GitVersion to work properly
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Execute GitVersion'
+    inputs:
+      command: 'custom'
+      custom: 'gitversion'
+      arguments: '/output buildserver'  
+      
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore analyzer project'
+    inputs:
+      command: 'restore'
+      projects: '$(analyzerProject)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Restore test projects'
+    inputs:
+      command: 'restore'
+      projects: '$(testProjects)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build analyzer project'
+    inputs:
+      command: 'build'
+      projects: '$(analyzerProject)'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Build test projects'
+    inputs:
+      command: 'build'
+      projects: '$(testProjects)'
+      arguments: '--configuration $(buildConfiguration)'
+
+  # Run the analyzer tests
+  - task: DotNetCoreCLI@2
+    displayName: 'Run analyzer tests'
+    inputs:
+      command: 'test'
+      projects: '$(testProjects)'
+      arguments: '--configuration $(buildConfiguration) --no-build'
+
+  # Create prerelease NuGet package
+  - task: DotNetCoreCLI@2
+    displayName: 'Create prerelease NuGet package'
+    inputs:
+      command: 'custom'
+      custom: 'pack'
+      projects: '$(analyzerProject)'
+      arguments: >
+        --no-build
+        --configuration $(buildConfiguration)
+        --output $(prereleaseDir)
+        /p:PackageVersion=$(GitVersion.MajorMinorPatch)-preview-$(Build.BuildId)
+        /p:Version=$(GitVersion.MajorMinorPatch)
+
+  # Create stable NuGet package
+  - task: DotNetCoreCLI@2
+    displayName: 'Create stable NuGet package'
+    inputs:
+      command: 'custom'
+      custom: 'pack'
+      projects: '$(analyzerProject)'
+      arguments: >
+        --no-build
+        --configuration $(buildConfiguration)
+        --output $(stableDir)
+        /p:PackageVersion=$(GitVersion.MajorMinorPatch)
+        /p:Version=$(GitVersion.MajorMinorPatch)
+      outputDir: '$(stableDir)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Push prerelease package to public feed'
+    inputs:
+      command: 'push'
+      packagesToPush: '$(prereleaseDir)/*.nupkg'
+      nuGetFeedType: 'internal'
+      publishVstsFeed: '$(feedName)'
+
+  # Publish stable packages as artifacts for later use in a release pipeline
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish stable NuGet packages as artifacts'
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

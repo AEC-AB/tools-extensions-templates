@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.1.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assistant.Extensions.Templates", "Assistant.Extensions.Templates.csproj", "{13FDFE58-F588-4601-B53E-233AFEBE06F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{148E0A76-6F72-43C5-BF55-A6A10CC03A7B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCADAutomationExtension", "templates\AutoCADAutomationExtension\AutoCADAutomationExtension.csproj", "{AE735B15-323B-439A-9CD1-5FB8C6D119B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NavisworksAutomationExtension", "templates\NavisworksAutomationExtension\NavisworksAutomationExtension.csproj", "{B58DC087-243C-411B-8A70-937CC82D51C4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RevitAutomationExtension", "templates\RevitAutomationExtension\RevitAutomationExtension.csproj", "{03F68F5E-B5E5-4A72-98E7-AAC14618C251}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TeklaAutomationExtension", "templates\TeklaAutomationExtension\TeklaAutomationExtension.csproj", "{73C04155-21AC-41FC-8FEE-175449C539DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitAppExtension", "templates\RevitAppExtension\RevitAppExtension.csproj", "{42D48BAB-1349-EA89-50F0-D675EBBE3047}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RevitAppFramework", "frameworks\RevitAppFramework\RevitAppFramework.csproj", "{CD43E9CF-6EEA-5947-6046-47C8A30E818F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frameworks", "frameworks", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{13FDFE58-F588-4601-B53E-233AFEBE06F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FDFE58-F588-4601-B53E-233AFEBE06F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FDFE58-F588-4601-B53E-233AFEBE06F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FDFE58-F588-4601-B53E-233AFEBE06F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE735B15-323B-439A-9CD1-5FB8C6D119B4}.Debug|Any CPU.ActiveCfg = Debug 2019|Any CPU
+		{AE735B15-323B-439A-9CD1-5FB8C6D119B4}.Debug|Any CPU.Build.0 = Debug 2019|Any CPU
+		{AE735B15-323B-439A-9CD1-5FB8C6D119B4}.Release|Any CPU.ActiveCfg = Release 2019|Any CPU
+		{AE735B15-323B-439A-9CD1-5FB8C6D119B4}.Release|Any CPU.Build.0 = Release 2019|Any CPU
+		{B58DC087-243C-411B-8A70-937CC82D51C4}.Debug|Any CPU.ActiveCfg = Debug 2019|Any CPU
+		{B58DC087-243C-411B-8A70-937CC82D51C4}.Debug|Any CPU.Build.0 = Debug 2019|Any CPU
+		{B58DC087-243C-411B-8A70-937CC82D51C4}.Release|Any CPU.ActiveCfg = Release 2019|Any CPU
+		{B58DC087-243C-411B-8A70-937CC82D51C4}.Release|Any CPU.Build.0 = Release 2019|Any CPU
+		{03F68F5E-B5E5-4A72-98E7-AAC14618C251}.Debug|Any CPU.ActiveCfg = Debug 2019|Any CPU
+		{03F68F5E-B5E5-4A72-98E7-AAC14618C251}.Debug|Any CPU.Build.0 = Debug 2019|Any CPU
+		{03F68F5E-B5E5-4A72-98E7-AAC14618C251}.Release|Any CPU.ActiveCfg = Release 2019|Any CPU
+		{03F68F5E-B5E5-4A72-98E7-AAC14618C251}.Release|Any CPU.Build.0 = Release 2019|Any CPU
+		{73C04155-21AC-41FC-8FEE-175449C539DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73C04155-21AC-41FC-8FEE-175449C539DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73C04155-21AC-41FC-8FEE-175449C539DD}.Release|Any CPU.ActiveCfg = Release 2020|Any CPU
+		{73C04155-21AC-41FC-8FEE-175449C539DD}.Release|Any CPU.Build.0 = Release 2020|Any CPU
+		{42D48BAB-1349-EA89-50F0-D675EBBE3047}.Debug|Any CPU.ActiveCfg = Design|Any CPU
+		{42D48BAB-1349-EA89-50F0-D675EBBE3047}.Debug|Any CPU.Build.0 = Design|Any CPU
+		{42D48BAB-1349-EA89-50F0-D675EBBE3047}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42D48BAB-1349-EA89-50F0-D675EBBE3047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD43E9CF-6EEA-5947-6046-47C8A30E818F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD43E9CF-6EEA-5947-6046-47C8A30E818F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD43E9CF-6EEA-5947-6046-47C8A30E818F}.Release|Any CPU.ActiveCfg = Release 2019|Any CPU
+		{CD43E9CF-6EEA-5947-6046-47C8A30E818F}.Release|Any CPU.Build.0 = Release 2019|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AE735B15-323B-439A-9CD1-5FB8C6D119B4} = {148E0A76-6F72-43C5-BF55-A6A10CC03A7B}
+		{B58DC087-243C-411B-8A70-937CC82D51C4} = {148E0A76-6F72-43C5-BF55-A6A10CC03A7B}
+		{03F68F5E-B5E5-4A72-98E7-AAC14618C251} = {148E0A76-6F72-43C5-BF55-A6A10CC03A7B}
+		{73C04155-21AC-41FC-8FEE-175449C539DD} = {148E0A76-6F72-43C5-BF55-A6A10CC03A7B}
+		{42D48BAB-1349-EA89-50F0-D675EBBE3047} = {148E0A76-6F72-43C5-BF55-A6A10CC03A7B}
+		{CD43E9CF-6EEA-5947-6046-47C8A30E818F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97952A9C-0551-4FF7-A178-19960B34A9DE}
+	EndGlobalSection
+EndGlobal

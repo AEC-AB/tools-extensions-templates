@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "AEC",
+  "tags": {
+    "language": "Python",
+    "type": "project"
+  },
+  "classifications": [
+    "Revit",
+    "Tools by AEC",
+    "Assistant Script"
+  ],
+  "identity": "CW.Assistant.Python.Revit.AutomationScript",
+  "name": "Revit Python Automation Script",
+  "shortName": "cwpyrvtas",
+  "sourceName": "python_revit_automation_script"
+}

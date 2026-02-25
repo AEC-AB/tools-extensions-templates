@@ -1,0 +1,29 @@
+{
+  "Custom Autofill Tekla": {
+    "prefix": [
+      "control-type-auto-fill-custom-Tekla"
+    ],
+    "body": [
+      "[Description(\"${1:ControlName}\")]",
+      "[CustomTeklaAutoFill(typeof(${1/([a-zA-z]*) +([a-z]*)/${1:/capitalize}${2:/capitalize}/g}AutoFillCollector))]",
+      "public string ${1/([a-zA-z]*) +([a-z]*)/${1:/capitalize}${2:/capitalize}/g} { get; set; }",
+      "",
+      "internal class ${1/([a-zA-z]*) +([a-z]*)/${1:/capitalize}${2:/capitalize}/g}AutoFillCollector : ITeklaAutoFillCollector<${2:TeklaAppExtensionArgs}>",
+      "{",
+      "    public Dictionary<string, string> Get(${2:TeklaAppExtensionArgs} args)",
+      "    {",
+      "        var result = new Dictionary<string, string>();",
+      "        try",
+      "        {",
+      "            var model = new Model();",
+      "            if (!model.GetConnectionStatus()) return result;",
+      "            ${3}",
+      "        }",
+      "        catch { }",
+      "        return result;",
+      "    }",
+      "}",
+    ],
+    "description": "Control for Extension UI with custom autofill with Tekla context"
+  }
+}
