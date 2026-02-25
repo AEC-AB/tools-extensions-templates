@@ -27,6 +27,8 @@ namespace RevitAutomationExtension;
 /// Common attributes include:
 /// - [TextField(Label = "Label")] - Sets the visible label in the UI
 /// - [TextField(ToolTip = "Help text")] - Adds tooltip help text
+/// - [Required] and [Range] - Adds value validation
+/// - Visibility = nameof(ShowAdvanced) - Conditional visibility based on another field
 /// - [ControlType(ControlType.ComboBox)] - Sets a specific control type
 /// - [RevitAutoFill(RevitAutoFillSource.Categories)] - Adds Revit data auto-fill
 /// - [ValueCopyCollector(typeof(ValueCopyRevitCollector))] - Enables value copy functionality
@@ -39,9 +41,19 @@ public class RevitAutomationExtensionArgs
     /// <remarks>
     /// This is a simple example of a string property that creates a text input field.
     /// The [TextField] attribute sets the visible label in the UI and provides tooltip text.
+    /// Validation attributes enforce allowed input ranges and required values.
     /// </remarks>
     [TextField(Label = "Text input", ToolTip = "Sample tooltip text that appears on hover")]
+    [Required(ErrorMessage = "Text input is required.")]
+    [StringLength(100, MinimumLength = 3, ErrorMessage = "Text input must be between 3 and 100 characters.")]
     public string TextInput { get; set; } = "Default input";
+
+    [BooleanField(Label = "Show advanced options")]
+    public bool ShowAdvanced { get; set; }
+
+    [IntegerField(Label = "Retry count", ToolTip = "Number of retries for transient failures", MinimumValue = 0, MaximumValue = 10, Visibility = nameof(ShowAdvanced))]
+    [Range(0, 10, ErrorMessage = "Retry count must be between 0 and 10.")]
+    public int RetryCount { get; set; } = 3;
     
     // Examples of other common parameter types (commented out):
     

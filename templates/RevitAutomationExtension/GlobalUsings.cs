@@ -15,6 +15,7 @@
 global using System;                    // Core functionality like exceptions, base types
 global using System.Linq;               // LINQ query extensions for collections
 global using System.ComponentModel;     // For UI attributes like Description
+global using System.ComponentModel.DataAnnotations; // Validation attributes like Required and Range
 global using System.Threading;          // Threading utilities including cancellation
 global using System.Threading.Tasks;    // Task-based asynchronous operations
 global using System.Collections.Generic; // Generic collection types
