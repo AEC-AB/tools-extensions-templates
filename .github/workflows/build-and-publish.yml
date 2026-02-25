@@ -44,29 +44,7 @@ jobs:
         include:
           - package_name: templates
             package_type: templates
-          - revit_version: "2019"
-            package_name: revit-framework-2019
-            package_type: revit
-          - revit_version: "2020"
-            package_name: revit-framework-2020
-            package_type: revit
-          - revit_version: "2021"
-            package_name: revit-framework-2021
-            package_type: revit
-          - revit_version: "2022"
-            package_name: revit-framework-2022
-            package_type: revit
-          - revit_version: "2023"
-            package_name: revit-framework-2023
-            package_type: revit
-          - revit_version: "2024"
-            package_name: revit-framework-2024
-            package_type: revit
-          - revit_version: "2025"
-            package_name: revit-framework-2025
-            package_type: revit
-          - revit_version: "2026"
-            package_name: revit-framework-2026
+          - package_name: revit-framework
             package_type: revit
           - package_name: revit-separation-analyzer
             package_type: analyzer
@@ -104,11 +82,17 @@ jobs:
             }
 
             "revit" {
-              dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config
-              dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration Release${{ matrix.revit_version }} --no-restore
+              $revitVersions = @("2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026")
 
-              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-              dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration Release${{ matrix.revit_version }} --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+              foreach ($revitVersion in $revitVersions) {
+                $revitConfiguration = "Release $revitVersion"
+
+                dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config -p:Configuration="$revitConfiguration"
+                dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration "$revitConfiguration" --no-restore
+
+                dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+                dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+              }
             }
 
             "analyzer" {
