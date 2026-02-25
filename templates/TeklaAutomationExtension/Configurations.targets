@@ -138,7 +138,7 @@
 
 
   <ItemGroup>
-    <PackageReference Include="CW.Assistant.Extensions.Tekla.$(MainTeklaVersion)" Version="0.*">
+    <PackageReference Include="CW.Assistant.Extensions.Tekla.$(MainTeklaVersion)" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile</IncludeAssets>
     </PackageReference>

@@ -15,7 +15,19 @@
     <ContentTargetFolders>content</ContentTargetFolders>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
+    <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**;templates\_shared\**" />
     <Compile Remove="**\*" />
   </ItemGroup>
+
+  <Target Name="SyncUiCommonInstructions" BeforeTargets="Pack">
+    <ItemGroup>
+      <TemplateInstructionRoots Include="templates\**\.github\instructions\platform.instructions.md" Exclude="templates\_shared\**" />
+      <UiCommonDestinations Include="@(TemplateInstructionRoots->'%(RootDir)%(Directory)ui-common.instructions.md')" />
+      <UiCommonSources Include="@(UiCommonDestinations->'$(MSBuildProjectDirectory)\templates\_shared\.github\instructions\ui-common.instructions.md')" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(UiCommonSources)"
+          DestinationFiles="@(UiCommonDestinations)"
+          SkipUnchangedFiles="true" />
+  </Target>
 </Project>

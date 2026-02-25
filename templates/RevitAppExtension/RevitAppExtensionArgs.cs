@@ -7,5 +7,6 @@ namespace RevitAppExtension;
 /// </summary>
 public class RevitAppExtensionArgs
 {
+    [TextField(Label = "Initial comment", ToolTip = "Initial comment text shown in the app")]
     public string? InitialComment { get; set; }
 }

@@ -35,6 +35,7 @@ global using CW.Assistant.Extensions.Contracts;
 global using CW.Assistant.Extensions.Contracts.Enums;
 global using CW.Assistant.Extensions.Contracts.Collectors;
 global using CW.Assistant.Extensions.Contracts.Attributes;
+global using CW.Assistant.Extensions.Contracts.Fields;
 
 // Revit-specific Assistant Extension namespaces - for Revit-specific functionality
 global using CW.Assistant.Extensions.Revit;

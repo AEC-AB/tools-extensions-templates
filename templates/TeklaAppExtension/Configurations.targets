@@ -18,9 +18,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" PrivateAssets="all"/>
     <PackageReference Include="WPF-UI" Version="4.*" />
 
-    <PackageReference Include="MVVMFluent" Version="0.*">
+    <PackageReference Include="MVVMFluent.Wpf" Version="0.0.2">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <IncludeAssets>compile; runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
   
@@ -146,7 +146,7 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       </PackageReference>
-       <PackageReference Include="CW.Assistant.Extensions.Tekla.$(MainTeklaVersion)" Version="0.*">
+       <PackageReference Include="CW.Assistant.Extensions.Tekla.$(MainTeklaVersion)" Version="26.*">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>compile</IncludeAssets>
         </PackageReference>

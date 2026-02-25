@@ -26,14 +26,14 @@
         </Grid.ColumnDefinitions>
 
         <!-- Document Title Display Section -->
-        <!-- Shows the current document title retrieved from Revit -->
+        <!-- Shows the current model title retrieved from Tekla -->
         <ui:TextBlock VerticalAlignment="Center">
             <ui:TextBlock FontTypography="BodyStrong" Text="Model Name:" VerticalAlignment="Center"/>
             <ui:TextBlock Text="{Binding CurrentDocumentTitle}" FontTypography="BodyStrong" VerticalAlignment="Center" Margin="5,0,0,0"/>
         </ui:TextBlock>
 
         <!-- Get Document Title Button -->
-        <!-- Demonstrates invoking a read-only Revit API operation through a ViewModel command -->
+        <!-- Demonstrates invoking a read-only Tekla API operation through a ViewModel command -->
         <ui:Button  Content="Get model name"
                         Margin="5"
                         Appearance="Primary"
@@ -50,7 +50,7 @@
                         IsEnabled="{Binding SetCommentOnSelectedElementsCommand.IsRunning, Converter={StaticResource InvertedBoolToBoolConverter}}"/>
 
         <!-- Set Comment Button -->
-        <!-- Demonstrates triggering a Revit transaction through a ViewModel command -->
+        <!-- Demonstrates triggering a Tekla model update through a ViewModel command -->
         <!-- Visibility toggling demonstrates state-based UI using command properties -->
         <ui:Button  Content="Set Comment" Command="{Binding SetCommentOnSelectedElementsCommand}" 
                         Margin="5"    
@@ -61,7 +61,7 @@
                         Grid.Row="1"/>
 
         <!-- Cancel Button -->
-        <!-- Demonstrates cancellation pattern for long-running Revit operations -->
+        <!-- Demonstrates cancellation pattern for long-running Tekla operations -->
         <!-- Only visible when an operation is running (opposite visibility from Set Button) -->
         <ui:Button  Content="Cancel" 
                         Margin="5"

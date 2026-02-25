@@ -25,8 +25,8 @@ namespace RevitAutomationExtension;
 /// 3. Set a sensible default value if appropriate
 /// 
 /// Common attributes include:
-/// - [Description("Label")] - Sets the visible label in the UI
-/// - [ControlData(ToolTip = "Help text")] - Adds tooltip help text
+/// - [TextField(Label = "Label")] - Sets the visible label in the UI
+/// - [TextField(ToolTip = "Help text")] - Adds tooltip help text
 /// - [ControlType(ControlType.ComboBox)] - Sets a specific control type
 /// - [RevitAutoFill(RevitAutoFillSource.Categories)] - Adds Revit data auto-fill
 /// - [ValueCopyCollector(typeof(ValueCopyRevitCollector))] - Enables value copy functionality
@@ -38,10 +38,9 @@ public class RevitAutomationExtensionArgs
     /// </summary>
     /// <remarks>
     /// This is a simple example of a string property that creates a text input field.
-    /// The [Description] attribute sets the visible label in the UI.
-    /// The [ControlData] attribute provides additional control configuration like tooltips.
+    /// The [TextField] attribute sets the visible label in the UI and provides tooltip text.
     /// </remarks>
-    [Description("Text input"), ControlData(ToolTip = "Sample tooltip text that appears on hover")]
+    [TextField(Label = "Text input", ToolTip = "Sample tooltip text that appears on hover")]
     public string TextInput { get; set; } = "Default input";
     
     // Examples of other common parameter types (commented out):
@@ -50,7 +49,7 @@ public class RevitAutomationExtensionArgs
     /// <summary>
     /// Example of a dropdown selection for Revit categories.
     /// </summary>
-    [Description("Select Category")]
+    [TextField(Label = "Select Category")]
     [ControlType(ControlType.ComboBox)]
     [RevitAutoFill(RevitAutoFillSource.Categories)]
     public string SelectedCategory { get; set; }
@@ -58,14 +57,13 @@ public class RevitAutomationExtensionArgs
     /// <summary>
     /// Example of a numeric input parameter.
     /// </summary>
-    [Description("Offset Distance")]
-    [ControlData(ToolTip = "Enter the offset distance in millimeters")]
+    [DoubleField(Label = "Offset Distance", ToolTip = "Enter the offset distance in millimeters")]
     public double OffsetDistance { get; set; } = 100.0;
     
     /// <summary>
     /// Example of a parameter for ValueCopy functionality.
     /// </summary>
-    [Description("Parameter Value Copy")]
+    [TextField(Label = "Parameter Value Copy")]
     [ValueCopyCollector(typeof(ValueCopyRevitCollector))]
     public ValueCopy ValueCopy { get; set; }
     */

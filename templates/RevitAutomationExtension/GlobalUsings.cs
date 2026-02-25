@@ -33,6 +33,7 @@ global using CW.Assistant.Extensions.Contracts;      // Interfaces and base cont
 global using CW.Assistant.Extensions.Contracts.Enums; // Enumeration types
 global using CW.Assistant.Extensions.Contracts.Collectors; // Data collection helpers
 global using CW.Assistant.Extensions.Contracts.Attributes; // Attribute definitions for UI
+global using CW.Assistant.Extensions.Contracts.Fields; // Strongly-typed field attributes for UI
 
 //-----------------------------------------------------------------------------
 // Revit-specific extension framework namespaces

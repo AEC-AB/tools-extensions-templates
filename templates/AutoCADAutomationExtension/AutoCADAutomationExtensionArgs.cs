@@ -7,6 +7,6 @@ namespace AutoCADAutomationExtension;
 /// </summary>
 public class AutoCADAutomationExtensionArgs
 {
-    [Description("Text input"), ControlData(ToolTip = "Sample tooltip")]
+    [TextField(Label = "Text input", ToolTip = "Sample tooltip")]
     public string TextInput { get; set; } = "Default input";
 }

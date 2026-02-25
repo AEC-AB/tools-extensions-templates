@@ -7,6 +7,6 @@ namespace AssistantAutomationExtension;
 /// </summary>
 public class AssistantAutomationExtensionArgs
 {
-    [Description("Text input"), ControlData(ToolTip = "Sample tooltip")]
+    [TextField(Label = "Text input", ToolTip = "Sample tooltip")]
     public string TextInput { get; set; } = "Default input";
 }

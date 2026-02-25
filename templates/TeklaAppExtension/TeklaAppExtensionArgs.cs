@@ -12,5 +12,6 @@ public class TeklaAppExtensionArgs
     /// This value is automatically populated from user input in the Extension Task UI.
     /// It will be used as the default comment when setting comments on Tekla objects.
     /// </summary>
+    [TextField(Label = "Initial comment", ToolTip = "Initial comment text shown in the app")]
     public string InitialComment { get; set; } = "Default comment";
 }

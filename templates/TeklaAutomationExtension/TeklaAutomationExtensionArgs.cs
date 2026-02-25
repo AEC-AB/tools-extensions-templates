@@ -7,6 +7,6 @@ namespace TeklaAutomationExtension;
 /// </summary>
 public class TeklaAutomationExtensionArgs
 {
-    [Description("Text input"), ControlData(ToolTip = "Sample tooltip")]
+    [TextField(Label = "Text input", ToolTip = "Sample tooltip")]
     public string TextInput { get; set; } = "Default input";
 }

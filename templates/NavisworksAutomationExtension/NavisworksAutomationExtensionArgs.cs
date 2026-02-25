@@ -7,6 +7,6 @@ namespace NavisworksAutomationExtension;
 /// </summary>
 public class NavisworksAutomationExtensionArgs
 {
-    [Description("Text input"), ControlData(ToolTip = "Sample tooltip")]
+    [TextField(Label = "Text input", ToolTip = "Sample tooltip")]
     public string TextInput { get; set; } = "Default input";
 }

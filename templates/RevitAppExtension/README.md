@@ -43,7 +43,12 @@ For detailed information about the project architecture, design patterns, and im
 
 ## AI-Assisted Development
 
-This template includes an `.github/extensions-development-llm.instructions.md` file that provides comprehensive instructions for AI assistants like GitHub Copilot. These instructions help ground the AI with specific knowledge about:
+This template includes instruction files in `.github/instructions/` for AI assistants like GitHub Copilot:
+
+- `ui-common.instructions.md` for shared UI/framework guidance
+- `platform.instructions.md` for Revit-specific guidance
+
+These instructions help ground the AI with specific knowledge about:
 
 - Assistant Extension development patterns
 - Revit API best practices
