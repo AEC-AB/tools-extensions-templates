@@ -44,7 +44,29 @@ jobs:
         include:
           - package_name: templates
             package_type: templates
-          - package_name: revit-framework
+          - revit_version: "2019"
+            package_name: revit-framework-2019
+            package_type: revit
+          - revit_version: "2020"
+            package_name: revit-framework-2020
+            package_type: revit
+          - revit_version: "2021"
+            package_name: revit-framework-2021
+            package_type: revit
+          - revit_version: "2022"
+            package_name: revit-framework-2022
+            package_type: revit
+          - revit_version: "2023"
+            package_name: revit-framework-2023
+            package_type: revit
+          - revit_version: "2024"
+            package_name: revit-framework-2024
+            package_type: revit
+          - revit_version: "2025"
+            package_name: revit-framework-2025
+            package_type: revit
+          - revit_version: "2026"
+            package_name: revit-framework-2026
             package_type: revit
           - package_name: revit-separation-analyzer
             package_type: analyzer
@@ -72,46 +94,56 @@ jobs:
       - name: Build and pack package
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Stop'
+
+          function Invoke-Dotnet {
+            param(
+              [Parameter(ValueFromRemainingArguments = $true)]
+              [string[]]$Arguments
+            )
+
+            & dotnet @Arguments
+            if ($LASTEXITCODE -ne 0) {
+              throw "dotnet $($Arguments -join ' ') failed with exit code $LASTEXITCODE."
+            }
+          }
+
           switch ("${{ matrix.package_type }}") {
             "templates" {
-              dotnet restore Assistant.Extensions.Templates.csproj
-              dotnet build Assistant.Extensions.Templates.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
+              Invoke-Dotnet restore Assistant.Extensions.Templates.csproj
+              Invoke-Dotnet build Assistant.Extensions.Templates.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
 
-              dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-              dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+              Invoke-Dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              Invoke-Dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
             }
 
             "revit" {
-              $revitVersions = @("2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026")
+              $revitConfiguration = "Release ${{ matrix.revit_version }}"
 
-              foreach ($revitVersion in $revitVersions) {
-                $revitConfiguration = "Release $revitVersion"
+              Invoke-Dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config -p:Configuration="$revitConfiguration"
+              Invoke-Dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration "$revitConfiguration" --no-restore
 
-                dotnet restore frameworks/RevitAppFramework/RevitAppFramework.csproj --configfile nuget.config -p:Configuration="$revitConfiguration"
-                dotnet build frameworks/RevitAppFramework/RevitAppFramework.csproj --configuration "$revitConfiguration" --no-restore
-
-                dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-                dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
-              }
+              Invoke-Dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              Invoke-Dotnet pack frameworks/RevitAppFramework/RevitAppFramework.csproj --no-build --configuration "$revitConfiguration" --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
             }
 
             "analyzer" {
-              dotnet restore analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
+              Invoke-Dotnet restore analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj
               Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
-                dotnet restore $_.FullName
+                Invoke-Dotnet restore $_.FullName
               }
 
-              dotnet build analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
+              Invoke-Dotnet build analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --configuration $env:BUILD_CONFIGURATION --no-restore
               Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
-                dotnet build $_.FullName --configuration $env:BUILD_CONFIGURATION --no-restore
+                Invoke-Dotnet build $_.FullName --configuration $env:BUILD_CONFIGURATION --no-restore
               }
 
               Get-ChildItem analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer.Test -Filter *.csproj | ForEach-Object {
-                dotnet test $_.FullName --configuration $env:BUILD_CONFIGURATION --no-build
+                Invoke-Dotnet test $_.FullName --configuration $env:BUILD_CONFIGURATION --no-build
               }
 
-              dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
-              dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
+              Invoke-Dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/prerelease /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+              Invoke-Dotnet pack analyzers/RevitSeparationAnalyzer/RevitSeparationAnalyzer/RevitSeparationAnalyzer.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/release/public /p:PackageVersion=${{ steps.gitversion.outputs.majorMinorPatch }} /p:Version=${{ steps.gitversion.outputs.majorMinorPatch }}
             }
 
             default {
