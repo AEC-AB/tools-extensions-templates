@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ExtensionId>RevitAutomationExtension</ExtensionId>
-    <Authors>Tools by AEC</Authors>
+    <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>RevitAutomationExtension</Title>
     <Description>RevitAutomationExtension Description</Description>

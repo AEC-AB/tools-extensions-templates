@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ExtensionId>AutoCADAutomationExtension</ExtensionId>
-    <Authors>Tools by AEC</Authors>
+    <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>AutoCADAutomationExtension</Title>
     <Description>AutoCADAutomationExtension Description</Description>

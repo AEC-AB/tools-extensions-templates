@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ExtensionId>AssistantAutomationExtension</ExtensionId>
-    <Authors>Tools by AEC</Authors>
+    <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>AssistantAutomationExtension</Title>
     <Description>AssistantAutomationExtension Description</Description>

@@ -4,7 +4,7 @@
     <PackageType>Template</PackageType>
     <PackageId>CW.Assistant.Extensions.Templates</PackageId>
     <Title>Tools by AEC Assistant Extension Templates</Title>
-    <Authors>Tools by AEC</Authors>
+    <Authors>AEC AB</Authors>
     <Description>Templates to use when creating an extension for Assistant by AEC.</Description>
     <PackageTags>dotnet-new;Tools-by-AEC;Assistant-Extensions</PackageTags>
     <TargetFramework>netstandard2.0</TargetFramework>

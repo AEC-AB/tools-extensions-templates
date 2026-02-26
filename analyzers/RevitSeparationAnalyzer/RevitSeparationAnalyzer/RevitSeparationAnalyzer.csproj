@@ -10,7 +10,7 @@
   <PropertyGroup>
     <PackageId>RevitSeparationAnalyzer</PackageId>
     <PackageVersion>1.1.0</PackageVersion>
-    <Authors>Tools by AEC</Authors>
+    <Authors>AEC AB</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Tools-by-AEC</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Tools-by-AEC</RepositoryUrl>

@@ -7,7 +7,7 @@
 		<developmentDependency>true</developmentDependency>
 		<license type="expression">MIT</license>
 		<description>RevitAppFramework is a framework for building Revit add-ins using MVVM and WPF.</description>
-		<authors>AEC</authors>
+		<authors>AEC AB</authors>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<readme>README.md</readme>
 		<tags>Revit wpf Assistant</tags>

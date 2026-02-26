@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <ExtensionId>TeklaAutomationExtension</ExtensionId>
-    <Authors>Tools by AEC</Authors>
+    <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>TeklaAutomationExtension</Title>
     <Description>TeklaAutomationExtension Description</Description>

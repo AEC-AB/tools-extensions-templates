@@ -8,7 +8,7 @@
 
   <PropertyGroup>
     <PackageVersion>0.0.1-alpha64</PackageVersion>
-	<Authors>AEC</Authors>
+	<Authors>AEC AB</Authors>
 	<ProjectUrl>https://wiki.toolsbyaec.com</ProjectUrl>
 	<Description>Framework for building extension apps for Assistant by AEC.</Description>
   </PropertyGroup>
