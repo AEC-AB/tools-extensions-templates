@@ -24,6 +24,15 @@
       "program": "${workspaceFolder}/bin/Design/RevitAppExtension.exe",
       "args": [ "-c", "Design" ],
       "stopAtEntry": false
+    },
+    {
+      "name": "Launch In Design Mode 2024 (net48)",
+      "preLaunchTask": "build (Design 2024)",
+      "type": "clr",
+      "request": "launch",
+      "program": "${workspaceFolder}/bin/Design/RevitAppExtension.exe",
+      "args": [ "-c", "Design 2024" ],
+      "stopAtEntry": false
     }
   ]
 }

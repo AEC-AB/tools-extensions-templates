@@ -20,7 +20,7 @@
   <Import Project="Configurations.targets" />
 
   <Choose>
-    <When Condition="'$(Configuration)' == 'Design'">
+    <When Condition="$(Configuration.Contains('Design'))">
       <PropertyGroup>
         <OutputType>WinExe</OutputType>
         <XamlDebuggingInformation>True</XamlDebuggingInformation>

@@ -413,6 +413,7 @@ Use Visual Studio Code's Run and Debug view to start or attach the debugger:
 1. Open the Run and Debug view (Ctrl+Shift+D) or click the Run icon in the Activity Bar.
 2. Select the desired configuration from the dropdown at the top:
    - **Launch In Design Mode**
+   - **Launch In Design Mode 2024 (net48)**
    - **Attach to Revit**
 3. Press F5 or click the green ▶️ play button to begin debugging.
 
@@ -422,10 +423,31 @@ Use Visual Studio Code's Run and Debug view to start or attach the debugger:
   - It uses `IDesignQueryHandler<TQuery, TResult>` implementations in the `CQRS` folder to provide mock data.
   - Set breakpoints in your design query handlers, e.g. `GetDocumentTitleDesignQueryHandler` or `SetCommentOnSelectedElementsDesignQueryHandler`.
 
+- **Launch In Design Mode 2024 (net48)**
+  - Use this when you need to test against a .NET Framework 4.8 runtime, matching Revit 2024 and earlier behavior.
+  - This uses the `Design 2024` build configuration which targets `net48`.
+  - Useful for verifying that your extension behaves correctly on the .NET Framework runtime path.
+
 - **Attach to Revit**
   - Use the `Attach to Revit` configuration in `.vscode/launch.json`.
   - Attaches the debugger to a running Revit process and uses live Revit API data.
   - Select `Attach to Revit` and start debugging Revit.
+
+### Running Design Mode From Repository Root
+
+If you are working in the template repository (not a generated extension project), run:
+
+```powershell
+dotnet build .\templates\RevitAppExtension\RevitAppExtension.csproj --configuration Design
+dotnet run --project .\templates\RevitAppExtension\RevitAppExtension.csproj --configuration Design
+```
+
+For the .NET Framework path:
+
+```powershell
+dotnet build .\templates\RevitAppExtension\RevitAppExtension.csproj --configuration "Design 2024"
+dotnet run --project .\templates\RevitAppExtension\RevitAppExtension.csproj --configuration "Design 2024"
+```
 
 ### Using IDesignQueryHandler
 

@@ -3,6 +3,10 @@
 public static class GlobalResourceManager
 {
     private static readonly global::System.Collections.Concurrent.ConcurrentDictionary<string, global::System.Windows.ResourceDictionary> _resources = [];
+    private const string ControlsSourceKey = "RevitAppFramework.Resources.ControlsSource";
+    private const string ThemeSourceKeyPrefix = "RevitAppFramework.Resources.ThemeSource.";
+    private static readonly object _sourceCacheLock = new();
+
     public static global::System.Windows.ResourceDictionary ResourceDictionary
     {
         get
@@ -23,16 +27,56 @@ public static class GlobalResourceManager
 
             // Add theme resources
             var appTheme = GetApplicationTheme();
-            var themes = new global::Wpf.Ui.Markup.ThemesDictionary { Theme = appTheme };
-            var controls = new global::Wpf.Ui.Markup.ControlsDictionary();
-
-            // Add themes and controls to merged dictionaries
-            resourceDictionary.MergedDictionaries.Add(themes);
-            resourceDictionary.MergedDictionaries.Add(controls);
+            AddThemeDictionary(resourceDictionary, appTheme);
+            AddControlsDictionary(resourceDictionary);
 
             _resources[threadName] = resourceDictionary;
 
             return resourceDictionary;
+        }
+    }
+
+    private static void AddThemeDictionary(global::System.Windows.ResourceDictionary target, global::Wpf.Ui.Appearance.ApplicationTheme appTheme)
+    {
+        var key = ThemeSourceKeyPrefix + appTheme;
+
+        lock (_sourceCacheLock)
+        {
+            if (global::System.AppDomain.CurrentDomain.GetData(key) is global::System.Uri cachedThemeSource)
+            {
+                target.MergedDictionaries.Add(new global::System.Windows.ResourceDictionary
+                {
+                    Source = cachedThemeSource
+                });
+                return;
+            }
+
+            var themes = new global::Wpf.Ui.Markup.ThemesDictionary { Theme = appTheme };
+            target.MergedDictionaries.Add(themes);
+
+            if (themes.Source is global::System.Uri themeSource)
+                global::System.AppDomain.CurrentDomain.SetData(key, themeSource);
+        }
+    }
+
+    private static void AddControlsDictionary(global::System.Windows.ResourceDictionary target)
+    {
+        lock (_sourceCacheLock)
+        {
+            if (global::System.AppDomain.CurrentDomain.GetData(ControlsSourceKey) is global::System.Uri cachedControlsSource)
+            {
+                target.MergedDictionaries.Add(new global::System.Windows.ResourceDictionary
+                {
+                    Source = cachedControlsSource
+                });
+                return;
+            }
+
+            var controls = new global::Wpf.Ui.Markup.ControlsDictionary();
+            target.MergedDictionaries.Add(controls);
+
+            if (controls.Source is global::System.Uri controlsSource)
+                global::System.AppDomain.CurrentDomain.SetData(ControlsSourceKey, controlsSource);
         }
     }
 

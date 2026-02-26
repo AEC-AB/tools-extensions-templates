@@ -88,6 +88,22 @@
         "kind": "build",
         "isDefault": false
       }
+    },
+    {
+      "label": "build (Design 2024)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "${workspaceFolder}/RevitAppExtension.csproj",
+        "--configuration",
+        "Design 2024"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": {
+        "kind": "build",
+        "isDefault": false
+      }
     }
   ]
 }
