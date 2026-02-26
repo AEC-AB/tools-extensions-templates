@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace RevitAppFramework.Extensions;
 
@@ -36,7 +37,7 @@ public static class CQRSExtensions
         catch (global::System.Reflection.ReflectionTypeLoadException ex)
         {
             // Return the types that were successfully loaded
-            return ex.Types.Where(t => t != null).ToArray();
+            return [.. ex.Types.OfType<Type>()];
         }
         catch (global::System.Exception)
         {

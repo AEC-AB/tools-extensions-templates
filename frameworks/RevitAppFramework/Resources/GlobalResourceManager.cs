@@ -11,7 +11,7 @@ public static class GlobalResourceManager
     {
         get
         {
-            var threadName = global::System.Threading.Thread.CurrentThread.Name;
+            var threadName = global::System.Threading.Thread.CurrentThread.Name ?? "DefaultThread";
 
             if (_resources.TryGetValue(threadName, out var resourceDictionary))
                 return resourceDictionary;
