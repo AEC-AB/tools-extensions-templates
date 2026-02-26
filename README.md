@@ -1,4 +1,5 @@
 # Assistant Extension Templates for Tools by AEC
+![Assistant by AEC Logo](./Assistant-by-AEC-full-logo.svg)
 
 This package contains `dotnet new` templates for creating extensions and automation scripts for Assistant by AEC.
 
