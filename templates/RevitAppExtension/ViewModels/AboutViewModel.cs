@@ -33,7 +33,7 @@ public class AboutViewModel(ViewModelBaseDeps dependencies, ISnackbarService sna
     /// </remarks>
     private void OpenWiki()
     {
-        var wikiUrl = "https://wiki.toolsbyaec.com/en/Assistant/Develop/DotnetExtension/RevitAppExtension";
+        var wikiUrl = "https://toolswiki.aec.se/en/Assistant/Develop/DotnetExtension/RevitAppExtension";
         var startInfo = new ProcessStartInfo
         {
             FileName = wikiUrl,
