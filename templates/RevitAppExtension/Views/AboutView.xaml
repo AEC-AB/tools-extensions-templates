@@ -26,7 +26,7 @@
         <!-- Wiki Button -->
         <!-- Demonstrates binding to a command that performs a non-Revit operation (opening a URL) -->
         <!-- This uses the simpler Do() command pattern rather than the Send() pattern used for Revit operations -->
-        <ui:Button Content="COWI Tools Wiki" Icon="{ui:SymbolIcon Link16}" 
+        <ui:Button Content="Tools by AEC Wiki" Icon="{ui:SymbolIcon Link16}" 
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    Command="{Binding ShowWikiCommand}"/>

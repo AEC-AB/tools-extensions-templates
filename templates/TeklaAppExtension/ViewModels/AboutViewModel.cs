@@ -12,7 +12,7 @@ public class AboutViewModel(ISnackbarService snackbarService) : ViewModelBase
 
     private void OpenWiki()
     {
-        var wikiUrl = "https://wiki.toolsbyaec.com/en/Assistant/Develop/DotnetExtension/TeklaAppExtension";
+        var wikiUrl = "https://toolswiki.aec.se/en/Assistant/Develop/DotnetExtension/TeklaAppExtension";
         var startInfo = new ProcessStartInfo
         {
             FileName = wikiUrl,

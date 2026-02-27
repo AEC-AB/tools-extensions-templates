@@ -201,7 +201,7 @@ public class AboutViewModel(ViewModelBaseDeps dependencies, ISnackbarService sna
     
     private void OpenWiki()
     {
-        var wikiUrl = "https://wiki.toolsbyaec.com";
+        var wikiUrl = "https://toolswiki.aec.se";
         var startInfo = new ProcessStartInfo
         {
             FileName = wikiUrl,
