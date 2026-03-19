@@ -62,6 +62,26 @@
                 "Debug 2024"
             ],
             "group": "build"
+        },
+        {
+            "label": "Navisworks 2025",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2025"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Navisworks 2026",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2026"
+            ],
+            "group": "build"
         }
     ]
 }
