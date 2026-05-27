@@ -15,11 +15,14 @@ This file gives reusable guidance to coding agents working in the generated Tekl
 - Use `Result.*` helpers for all outcomes. Prefer `Result.Markdown.*` for execution summaries, diagnostics, and multi-step results.
 - Failure results should state what happened, why it happened when relevant, and exactly what the user should check next.
 - Do not catch `Exception` or `OperationCanceledException`. Catch only expected platform exceptions you can convert into actionable failures.
+- Start docs and implementation tasks by using the `extension-docs` assistant docs MCP tool for current Assistant extension guidance.
+- If the tool is unavailable, use `skills/mcp-setup/README.md` to restore the assistant MCP server from `.vscode/mcp.json` before continuing.
 - Use the skills below when the task is focused on docs lookup, `*Args.cs` evolution, platform-specific runtime behavior, or README authoring.
 
 ## Skills
 
-- `skills/docs-routing/README.md` - load the right `extension-docs` content and reading order for this template.
+- `skills/docs-routing/README.md` - start here to load the right `extension-docs` content and reading order for this template.
+- `skills/mcp-setup/README.md` - restore the assistant MCP server from `.vscode/mcp.json` when `extension-docs` is unavailable.
 - `skills/args-evolution/README.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
 - `skills/platform-guide/README.md` - apply when changing `*Command.cs`, collector code, or platform API behavior.
 - `skills/readme-help/README.md` - apply before shipping `README.md` updates.
