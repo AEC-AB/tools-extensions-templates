@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageVersion>0.0.1-alpha64</PackageVersion>
+    <PackageVersion>26.0.0</PackageVersion>
 	<Authors>AEC AB</Authors>
 	<ProjectUrl>https://toolswiki.aec.se</ProjectUrl>
 	<Description>Framework for building extension apps for Assistant by AEC.</Description>
@@ -17,7 +17,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="WPF-UI" Version="4.*" />
-		<PackageReference Include="CW.Assistant.Extensions.Revit.$(MainRevitVersion)" Version="5.*">
+		<PackageReference Include="CW.Assistant.Extensions.Revit.$(MainRevitVersion)" Version="26.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>compile</IncludeAssets>
 		</PackageReference>

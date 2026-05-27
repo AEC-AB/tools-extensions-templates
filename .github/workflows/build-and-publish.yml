@@ -68,6 +68,12 @@ jobs:
 
           Invoke-Dotnet pack Assistant.Extensions.Templates.csproj --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/packages /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
 
+          Get-ChildItem platforms -Recurse -Filter *.csproj | ForEach-Object {
+            Invoke-Dotnet restore $_.FullName
+            Invoke-Dotnet build $_.FullName --configuration $env:BUILD_CONFIGURATION --no-restore
+            Invoke-Dotnet pack $_.FullName --no-build --configuration $env:BUILD_CONFIGURATION --output artifacts/packages /p:PackageVersion=${{ steps.gitversion.outputs.semVer }} /p:Version=${{ steps.gitversion.outputs.semVer }}
+          }
+
           $revitVersions = @("2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026")
 
           foreach ($revitVersion in $revitVersions) {

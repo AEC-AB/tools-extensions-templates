@@ -1,24 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project>
   <PropertyGroup>
-    <ExtensionId>RevitAutomationExtension</ExtensionId>
-    <Authors>AEC AB</Authors>
-    <Version>26.0.0</Version>
-    <Title>RevitAutomationExtension</Title>
-    <Description>RevitAutomationExtension Description</Description>
-    <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
-    <PackageIcon>Icon.png</PackageIcon>
-    <PackageIconUrl></PackageIconUrl>
-    <!-- 
-    Adjust MainRevitVersion to get IntelliSense for the correct version do a 
-    dotnet restore to restore the correct nuget packages for the selected Revit version.
-    -->
-    <MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2024</MainRevitVersion>
-    <PlatformTarget>x64</PlatformTarget>
-    <DebugType>portable</DebugType>
-    <Nullable>enable</Nullable>
-    <NoWarn>NU1701</NoWarn>
-    <Configurations>Debug;Debug 2019;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Debug 2025;Debug 2026;Release 2019;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024;Release 2025;Release 2026</Configurations>
-    <LangVersion>12</LangVersion>
+    <PlatformTarget Condition="'$(PlatformTarget)' == ''">x64</PlatformTarget>
+    <DebugType Condition="'$(DebugType)' == ''">portable</DebugType>
+    <Nullable Condition="'$(Nullable)' == ''">enable</Nullable>
+    <RevitNet8TargetFramework Condition="'$(RevitNet8TargetFramework)' == ''">net8.0-windows</RevitNet8TargetFramework>
+    <Configurations Condition="'$(Configurations)' == ''">Debug;Debug 2019;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Debug 2025;Debug 2026;Release 2019;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024;Release 2025;Release 2026</Configurations>
+    <NoWarn>$(NoWarn);NU1701</NoWarn>
   </PropertyGroup>
 
   <Choose>
@@ -72,7 +59,7 @@
     </When>
     <When Condition="$(Configuration.Contains('2025')) or $([System.String]::Equals('$(MainRevitVersion)', '2025'))">
       <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFramework>$(RevitNet8TargetFramework)</TargetFramework>
         <MainRevitVersion>2025</MainRevitVersion>
         <RevitVersion>2025.0.0</RevitVersion>
         <DefineConstants>R2025;R2019_OR_GREATER;R2020_OR_GREATER;R2021_OR_GREATER;R2022_OR_GREATER;R2023_OR_GREATER;R2024_OR_GREATER;R2025_OR_GREATER;R2025_OR_LESS;R2026_OR_LESS</DefineConstants>
@@ -80,7 +67,7 @@
     </When>
     <When Condition="$(Configuration.Contains('2026')) or $([System.String]::Equals('$(MainRevitVersion)', '2026'))">
       <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFramework>$(RevitNet8TargetFramework)</TargetFramework>
         <MainRevitVersion>2026</MainRevitVersion>
         <RevitVersion>2026.0.0</RevitVersion>
         <DefineConstants>R2026;R2019_OR_GREATER;R2020_OR_GREATER;R2021_OR_GREATER;R2022_OR_GREATER;R2023_OR_GREATER;R2024_OR_GREATER;R2025_OR_GREATER;R2026_OR_GREATER;R2026_OR_LESS</DefineConstants>
@@ -88,7 +75,6 @@
     </When>
   </Choose>
 
-  
   <PropertyGroup Condition="$(Configuration.Contains('Debug')) and '$(OutputPath)' == ''">
     <OutputPath>./bin/Debug/</OutputPath>
   </PropertyGroup>
@@ -97,42 +83,4 @@
     <AssemblyName>$(ExtensionId).$(MainRevitVersion).$(Version)</AssemblyName>
     <PackageId>$(ExtensionId).$(MainRevitVersion)</PackageId>
   </PropertyGroup>
-
-    <Choose>
-    <When Condition="'$(TargetFramework)' == 'net48'">
-      <ItemGroup>
-        <Reference Include="PresentationCore" />
-        <Reference Include="PresentationFramework" />
-        <Reference Include="System.ComponentModel.DataAnnotations" />
-        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>compile</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="PolySharp" Version="1.14.1">
-          <PrivateAssets>all</PrivateAssets>
-          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-        </PackageReference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <PropertyGroup>
-        <UseWPF>true</UseWPF>
-      </PropertyGroup>
-    </Otherwise>
-  </Choose>
-
-  <ItemGroup>
-    <PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitVersion)">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="CW.Assistant.Extensions.Revit.$(MainRevitVersion)" Version="26.*">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>compile</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Icon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
 </Project>

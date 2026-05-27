@@ -42,7 +42,7 @@ Add the package that matches your Revit version:
 Example:
 
 ```xml
-<PackageReference Include="CW.RevitAppFramework.2026" Version="1.*" />
+<PackageReference Include="CW.RevitAppFramework.2026" Version="26.*" />
 ```
 
 ## Usage

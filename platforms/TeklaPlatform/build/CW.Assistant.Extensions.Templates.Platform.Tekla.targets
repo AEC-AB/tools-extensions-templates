@@ -1,0 +1,78 @@
+<Project>
+  <Choose>
+    <When Condition="$([System.String]::Equals('$(MainTeklaVersion)', '2020'))">
+      <ItemGroup>
+        <PackageReference Include="TeklaOpenAPI" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Tekla.Application.Library" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <Choose>
+    <When Condition="$([System.String]::Equals('$(MainTeklaVersion)', '2021'))">
+      <ItemGroup>
+        <PackageReference Include="Tekla.Structures" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tekla.Structures.Catalogs" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tekla.Structures.Datatype" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tekla.Structures.Dialog" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tekla.Structures.Drawing" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tekla.Structures.Model" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Tekla.Structures.Plugins" Version="$(TeklaApiVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net48'">
+      <ItemGroup>
+        <Reference Include="System.ComponentModel.DataAnnotations" />
+        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="PolySharp" Version="1.14.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <ItemGroup>
+    <PackageReference Include="CW.Assistant.Extensions.Tekla.$(MainTeklaVersion)" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
