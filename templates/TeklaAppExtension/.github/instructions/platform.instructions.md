@@ -1,35 +1,18 @@
 ---
 applyTo: '**/*.cs'
 ---
-# Tekla Platform Instructions
+# Tekla App Platform Instructions
 
-Use `ui-common.instructions.md` for all UI configuration and validation conventions.
+Use `ui-common.instructions.md` for Args behavior and `common.instructions.md` for shared app rules.
 
-## Tekla API Context
+For Tekla-specific implementation details, fetch docs:
 
-- Create a `Model` and verify connection with `GetConnectionStatus()`.
-- Use `ModelObjectSelector` for selected object workflows.
-- Commit changes when model updates are complete.
+1. `operation=search` with query `TEKLA_APP_EXTENSION.md`
+2. `operation=content` using the returned document id
 
-```csharp
-var model = new Model();
-if (!model.GetConnectionStatus())
-    return Result.Text.Failed("No active Tekla model");
+Keep Tekla-specific code rules:
 
-var selector = new Tekla.Structures.Model.UI.ModelObjectSelector();
-var selectedObjects = selector.GetSelectedObjects();
-
-// Update model
-model.CommitChanges();
-```
-
-## Tekla AutoFill
-
-Use `CustomTeklaAutoFill` with `ITeklaAutoFillCollector<TArgs>` for model-driven suggestions.
-
-## Best Practices
-
-1. Verify model connection before operations.
-2. Filter model objects for performance.
-3. Handle null/cast issues explicitly.
-4. Commit only after successful updates.
+1. Verify `Model().GetConnectionStatus()` before model operations.
+2. Keep model logic in services/handlers, not views/windows.
+3. Use selectors with explicit null checks for selected objects.
+4. Commit model changes only after successful operation scope.

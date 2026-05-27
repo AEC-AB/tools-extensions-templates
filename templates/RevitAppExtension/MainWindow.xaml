@@ -1,21 +1,4 @@
-﻿<!-- 
-    MainWindow.xaml - The primary window for the RevitAppExtension application.
-    
-    This window serves as the main container for the application UI and uses the WPF-UI
-    FluentWindow control to provide a modern Windows 11-style interface. The window
-    contains:
-    
-    1. A TitleBar for window chrome
-    2. A NavigationView for navigating between different pages (Home and About)
-    3. A SnackbarPresenter for displaying notification messages
-    4. A ContentPresenter for modal dialogs
-    
-    This layout uses WPF-UI's navigation system where views are automatically created
-    and associated with their corresponding view models through the TargetPageType property.
-    
-    The actual view content is specified in the ViewBindings.xaml resource dictionary,
-    which maps view models to their respective views.
--->
+﻿<!-- Shell window hosting page navigation, dialogs, and snackbars. -->
 <ui:FluentWindow x:Class="RevitAppExtension.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
