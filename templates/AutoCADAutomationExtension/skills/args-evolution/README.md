@@ -7,7 +7,7 @@ Use this skill when editing `*Args.cs` in the AutoCAD Automation Extension templ
 Use the `extension-docs` MCP tool:
 
 1. `operation=content` with document id `args-developer-guide`
-2. `operation=search` with query `Feature 4: Versioning & Upgrades`
+2. `operation=search` with query `args versioning upgrades`
 3. `operation=content` using the returned document id
 
 ## Upgrade rules

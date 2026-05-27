@@ -8,7 +8,7 @@ Use the `extension-docs` MCP tool:
 
 1. `operation=search` with query `ARGS_DEVELOPER_GUIDE.md`
 2. `operation=content` using the returned document id
-3. `operation=search` with query `Feature 4: Versioning & Upgrades`
+3. `operation=search` with query `args versioning upgrades`
 4. `operation=content` using the returned document id
 
 ## Upgrade rules

@@ -2,7 +2,7 @@
 
 Use this skill when you need framework guidance before changing code in the AutoCAD Automation Extension template.
 
-If the `extension-docs` assistant docs MCP tool is unavailable, use `../mcp-setup/README.md` first to restore the assistant MCP server from `.vscode/mcp.json`.
+If the `extension-docs` assistant docs MCP tool is unavailable, use `../mcp-setup/README.md` first to restore the assistant MCP server in the active agent framework.
 
 ## MCP entry points
 

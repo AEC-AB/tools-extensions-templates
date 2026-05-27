@@ -1,15 +1,25 @@
 # MCP setup
 
-Use this skill when the `extension-docs` assistant docs MCP tool is missing or the assistant MCP server is not configured in the workspace.
+Use this skill when the `extension-docs` assistant docs MCP tool is missing or when the agent runtime does not have the assistant MCP server configured.
 
 ## Restore the assistant MCP server
 
-1. Open `.vscode/mcp.json` in the project.
-2. Ensure it contains an `assistant` server under `servers`.
-3. If the file or entry is missing, recreate it from this template's `.vscode/mcp.json`.
-4. Confirm the server uses `command` `assistant` with args `["mcp"]`.
+1. Find the MCP client configuration used by your agent framework or editor.
+2. Ensure it defines an `assistant` server entry.
+3. If the server entry is missing, recreate it from this template's `.vscode/mcp.json` or copy the equivalent values into your framework's MCP configuration format.
+4. Confirm the server launches `assistant` with args `["mcp"]`.
+5. Reload or restart the agent runtime after updating the MCP configuration if required.
 
-## Expected config
+## Required server values
+
+- Server name: `assistant`
+- Transport: `stdio`
+- Command: `assistant`
+- Args: `mcp`
+
+## Example from this template
+
+The template includes this example in `.vscode/mcp.json`:
 
 ```json
 {

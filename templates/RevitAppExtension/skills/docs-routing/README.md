@@ -2,7 +2,7 @@
 
 Use this skill when you need framework guidance before changing code in the Revit App Extension template.
 
-If the `extension-docs` assistant docs MCP tool is unavailable, use `../mcp-setup/README.md` first to restore the assistant MCP server from `.vscode/mcp.json`.
+If the `extension-docs` assistant docs MCP tool is unavailable, use `../mcp-setup/README.md` first to restore the assistant MCP server in the active agent framework.
 
 ## Load these docs first
 
