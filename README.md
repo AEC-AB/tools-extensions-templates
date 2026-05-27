@@ -47,3 +47,5 @@ dotnet new cwrvtae -n MyRevitAutomationExtension
 ## Template maintenance
 
 Use `Assistant.Extensions.Templates.EditTemplates.sln` to edit templates and dependencies together.
+
+Shared platform props and targets now live in the `platforms/` projects and are packed as dedicated NuGet packages so supported versions and common platform dependencies can be updated in one place.

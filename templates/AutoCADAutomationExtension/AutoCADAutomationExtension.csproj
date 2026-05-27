@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ExtensionId>AutoCADAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
@@ -10,17 +9,26 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl></PackageIconUrl>
     <!-- 
-		Adjust MainAutoCADVersion to get IntelliSense for the correct version do a 
-		dotnet restore to restore the correct nuget packages for the selected AutoCAD version.
-		-->
-		<MainAutoCADVersion Condition="'$(Configuration)' == 'Debug'">2024</MainAutoCADVersion>
+Adjust MainAutoCADVersion to get IntelliSense for the correct version do a 
+dotnet restore to restore the correct nuget packages for the selected AutoCAD version.
+-->
+    <MainAutoCADVersion Condition="'$(Configuration)' == 'Debug'">2024</MainAutoCADVersion>
+    <AutoCADPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/AutoCADPlatform/build/</AutoCADPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
-  <Import Project=".\Configurations.targets" />
+  <Import Project="$(AutoCADPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.AutoCAD.props" Condition="Exists('$(AutoCADPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.AutoCAD.props')" />
+
+  <ItemGroup Condition="!Exists('$(AutoCADPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.AutoCAD.props')">
+    <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.AutoCAD" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <Import Project="$(AutoCADPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.AutoCAD.targets" Condition="Exists('$(AutoCADPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.AutoCAD.targets')" />
 </Project>

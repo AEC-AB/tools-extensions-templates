@@ -1,0 +1,43 @@
+<Project>
+  <Choose>
+    <When Condition="$([System.String]::Equals('$(MainNavisworksVersion)', '2019')) Or $([System.String]::Equals('$(MainNavisworksVersion)', '2020')) Or $([System.String]::Equals('$(MainNavisworksVersion)', '2021')) Or $([System.String]::Equals('$(MainNavisworksVersion)', '2022'))">
+      <ItemGroup>
+        <PackageReference Include="Sgnl.Navisworks.$(MainNavisworksVersion)" Version="3.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="Navisworks.$(MainNavisworksVersion)" Version="$(NavisworksVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net48'">
+      <ItemGroup>
+        <Reference Include="System.ComponentModel.DataAnnotations" />
+        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="PolySharp" Version="1.14.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+  </Choose>
+
+  <ItemGroup>
+    <PackageReference Include="CW.Assistant.Extensions.Navisworks.$(MainNavisworksVersion)" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

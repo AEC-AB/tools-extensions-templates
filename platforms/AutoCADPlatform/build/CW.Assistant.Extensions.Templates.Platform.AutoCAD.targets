@@ -1,0 +1,35 @@
+<Project>
+  <Choose>
+    <When Condition="'$(TargetFramework)' == 'net48'">
+      <ItemGroup>
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+        <Reference Include="System.ComponentModel.DataAnnotations" />
+        <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="PolySharp" Version="1.14.1">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <UseWPF>true</UseWPF>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <ItemGroup>
+    <PackageReference Include="AutoCAD.NET" Version="$(AutoCADVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="CW.Assistant.Extensions.AutoCAD.$(MainAutoCADVersion)" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>

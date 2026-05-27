@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ExtensionId>TeklaAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
@@ -10,17 +9,26 @@
     <PackageIcon>Icon.png</PackageIcon>
     <PackageIconUrl></PackageIconUrl>
     <!-- 
-		Adjust MainTeklaVersion to get IntelliSense for the correct version do a 
-		dotnet restore to restore the correct nuget packages for the selected Tekla version.
-		-->
+Adjust MainTeklaVersion to get IntelliSense for the correct version do a 
+dotnet restore to restore the correct nuget packages for the selected Tekla version.
+-->
     <MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2024</MainTeklaVersion>
+    <TeklaPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/TeklaPlatform/build/</TeklaPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
-  <Import Project=".\Configurations.targets" />
+  <Import Project="$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props" Condition="Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props')" />
+
+  <ItemGroup Condition="!Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props')">
+    <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Tekla" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <Import Project="$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.targets" Condition="Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.targets')" />
 </Project>

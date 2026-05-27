@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ExtensionId>RevitAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
@@ -14,13 +13,22 @@
     dotnet restore to restore the correct nuget packages for the selected Revit version.
     -->
     <MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2024</MainRevitVersion>
+    <RevitPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/RevitPlatform/build/</RevitPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
-  <Import Project=".\Configurations.targets" />
+  <Import Project="$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props" Condition="Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props')" />
+
+  <ItemGroup Condition="!Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props')">
+    <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Revit" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
+  <Import Project="$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.targets" Condition="Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.targets')" />
 </Project>

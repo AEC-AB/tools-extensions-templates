@@ -1,5 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ExtensionId>NavisworksAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
@@ -14,10 +13,18 @@
     dotnet restore to restore the correct nuget packages for the selected Navisworks version.
     -->
     <MainNavisworksVersion Condition="'$(Configuration)' == 'Debug'">2024</MainNavisworksVersion>
+    <NavisworksPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/NavisworksPlatform/build/</NavisworksPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
-  <Import Project=".\Configurations.targets" />
+  <Import Project="$(NavisworksPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Navisworks.props" Condition="Exists('$(NavisworksPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Navisworks.props')" />
+
+  <ItemGroup Condition="!Exists('$(NavisworksPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Navisworks.props')">
+    <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Navisworks" Version="26.*">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
@@ -30,4 +37,5 @@
     </PackageReference>
   </ItemGroup>
 
+  <Import Project="$(NavisworksPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Navisworks.targets" Condition="Exists('$(NavisworksPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Navisworks.targets')" />
 </Project>
