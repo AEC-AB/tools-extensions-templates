@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtensionId>TeklaAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
+    <Version>26.0.0</Version>
     <Title>TeklaAutomationExtension</Title>
     <Description>TeklaAutomationExtension Description</Description>
     <PackageTags>Tekla;Assistant;Extension</PackageTags>
@@ -19,7 +19,6 @@
     <Nullable>enable</Nullable>
     <NoWarn>NU1701</NoWarn>
     <Configurations>Debug;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024</Configurations>
-    <TeklaPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/TeklaPlatform/build/</TeklaPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
@@ -56,9 +55,7 @@
     </When>
   </Choose>
 
-  <Import Project="$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props" Condition="Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props')" />
-
-  <ItemGroup Condition="!Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props')">
+  <ItemGroup>
     <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Tekla" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -68,6 +65,4 @@
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
-
-  <Import Project="$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.targets" Condition="Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.targets')" />
 </Project>

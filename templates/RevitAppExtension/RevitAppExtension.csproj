@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtensionId>RevitAppExtension</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
+    <Version>26.0.0</Version>
     <Title>RevitAppExtension</Title>
     <Description>RevitAppExtension Description</Description>
     <PackageTags>Revit;Assistant;Extension;App</PackageTags>
@@ -21,8 +21,7 @@
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Design;Design 2024;Debug 2019;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Debug 2025;Debug 2026;Release 2019;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024;Release 2025;Release 2026</Configurations>
     <RevitNet8TargetFramework>net8.0-windows7.0</RevitNet8TargetFramework>
-    <RevitPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/RevitPlatform/build/</RevitPlatformBuildDir>
-    <RevitAppFrameworkPackageVersion Condition="'$(RevitAppFrameworkPackageVersion)' == ''">1.*</RevitAppFrameworkPackageVersion>
+    <RevitAppFrameworkPackageVersion Condition="'$(RevitAppFrameworkPackageVersion)' == ''">26.*</RevitAppFrameworkPackageVersion>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
@@ -85,9 +84,7 @@
     </When>
   </Choose>
 
-  <Import Project="$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props" Condition="Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props')" />
-
-  <ItemGroup Condition="!Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props')">
+  <ItemGroup>
     <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Revit" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -152,6 +149,4 @@
     </PackageReference>
     <PackageReference Include="WPF-UI" Version="4.0.2" />
   </ItemGroup>
-
-  <Import Project="$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.targets" Condition="Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.targets')" />
 </Project>

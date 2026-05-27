@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtensionId>RevitAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
+    <Version>26.0.0</Version>
     <Title>RevitAutomationExtension</Title>
     <Description>RevitAutomationExtension Description</Description>
     <PackageTags>Revit;Assistant;Extension;Automation</PackageTags>
@@ -18,7 +18,6 @@
     <Nullable>enable</Nullable>
     <NoWarn>NU1701</NoWarn>
     <Configurations>Debug;Debug 2019;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Debug 2025;Debug 2026;Release 2019;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024;Release 2025;Release 2026</Configurations>
-    <RevitPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/RevitPlatform/build/</RevitPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
@@ -81,9 +80,7 @@
     </When>
   </Choose>
 
-  <Import Project="$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props" Condition="Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props')" />
-
-  <ItemGroup Condition="!Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.props')">
+  <ItemGroup>
     <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Revit" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -93,6 +90,4 @@
   <ItemGroup>
     <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
-
-  <Import Project="$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.targets" Condition="Exists('$(RevitPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Revit.targets')" />
 </Project>

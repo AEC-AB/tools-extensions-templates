@@ -2,7 +2,7 @@
   <PropertyGroup>
     <ExtensionId>TeklaAppExtension</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
+    <Version>26.0.0</Version>
     <Title>TeklaAppExtension</Title>
     <Description>TeklaAppExtension Description</Description>
     <PackageTags>Tekla;Assistant;Extension;App</PackageTags>
@@ -21,7 +21,6 @@
     <NoWarn>NU1701</NoWarn>
     <UseWPF>true</UseWPF>
     <Configurations>Debug;Design;Debug 2020;Debug 2021;Debug 2022;Debug 2023;Debug 2024;Release 2020;Release 2021;Release 2022;Release 2023;Release 2024</Configurations>
-    <TeklaPlatformBuildDir>$(MSBuildThisFileDirectory)../../platforms/TeklaPlatform/build/</TeklaPlatformBuildDir>
     <LangVersion>12</LangVersion>
   </PropertyGroup>
 
@@ -58,9 +57,7 @@
     </When>
   </Choose>
 
-  <Import Project="$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props" Condition="Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props')" />
-
-  <ItemGroup Condition="!Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.props')">
+  <ItemGroup>
     <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Tekla" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -110,6 +107,4 @@
     </PackageReference>
     <PackageReference Include="WPF-UI" Version="4.*" />
   </ItemGroup>
-
-  <Import Project="$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.targets" Condition="Exists('$(TeklaPlatformBuildDir)CW.Assistant.Extensions.Templates.Platform.Tekla.targets')" />
 </Project>

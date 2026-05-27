@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>CW.Assistant.Extensions.Templates.Platform.Tekla</PackageId>
+    <Version>26.0.0</Version>
     <Title>Tekla template platform configuration</Title>
     <Authors>AEC AB</Authors>
     <Description>Centralized build configuration for Tekla extension templates.</Description>

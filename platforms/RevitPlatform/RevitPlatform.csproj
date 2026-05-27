@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PackageId>CW.Assistant.Extensions.Templates.Platform.Revit</PackageId>
+    <Version>26.0.0</Version>
     <Title>Revit template platform configuration</Title>
     <Authors>AEC AB</Authors>
     <Description>Centralized build configuration for Revit extension templates.</Description>
