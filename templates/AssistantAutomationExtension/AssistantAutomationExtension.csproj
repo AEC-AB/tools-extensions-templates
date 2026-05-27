@@ -19,9 +19,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CW.Assistant.Extensions.Templates.Platform.Assistant" Version="26.*">
+    <PackageReference Include="CW.Assistant.Extensions.Assistant" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <IncludeAssets>compile</IncludeAssets>
     </PackageReference>
   </ItemGroup>
 
