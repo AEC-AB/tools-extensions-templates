@@ -115,13 +115,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>$(ExtensionId).$(MainTeklaVersion).$(Version)</AssemblyName>
+    <AssemblyName>$(MSBuildProjectName).$(MainTeklaVersion).$(Version)</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>$(ExtensionId).$(MainTeklaVersion)</PackageId>
-  </PropertyGroup>
-
+  
 
   <Choose>
     <When Condition="'$(TargetFramework)' == 'net48'">
