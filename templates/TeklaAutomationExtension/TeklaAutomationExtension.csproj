@@ -9,8 +9,8 @@
 		Adjust MainTeklaVersion to get IntelliSense for the correct version do a 
 		dotnet restore to restore the correct nuget packages for the selected Tekla version.
 		-->
-    <MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2024</MainTeklaVersion>
-    <LangVersion>12</LangVersion>
+    <MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2026</MainTeklaVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project=".\Configurations.targets" />

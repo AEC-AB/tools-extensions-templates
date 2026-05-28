@@ -43,7 +43,3 @@ dotnet new cwrvtae -n MyRevitAutomationExtension
 
 - Assistant extension docs: [tools wiki](https://toolswiki.aec.se/en/Assistant/Develop/Extensions)
 - Open source extensions and examples: https://github.com/AEC-AB/tools-extensions-public
-
-## Template maintenance
-
-Use `Assistant.Extensions.Templates.EditTemplates.sln` to edit templates and dependencies together.

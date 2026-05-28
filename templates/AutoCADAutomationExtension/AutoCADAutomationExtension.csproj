@@ -9,8 +9,8 @@
 		Adjust MainAutoCADVersion to get IntelliSense for the correct version do a 
 		dotnet restore to restore the correct nuget packages for the selected AutoCAD version.
 		-->
-		<MainAutoCADVersion Condition="'$(Configuration)' == 'Debug'">2024</MainAutoCADVersion>
-    <LangVersion>12</LangVersion>
+		<MainAutoCADVersion Condition="'$(Configuration)' == 'Debug'">2026</MainAutoCADVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project=".\Configurations.targets" />

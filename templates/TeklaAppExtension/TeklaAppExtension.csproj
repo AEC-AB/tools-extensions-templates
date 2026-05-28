@@ -5,13 +5,13 @@
     <Version>0.0.1</Version>
     <Title>TeklaAppExtension</Title>
     <Description>TeklaAppExtension Description</Description>
-	<MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2024</MainTeklaVersion>
+	<MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2026</MainTeklaVersion>
     <!-- 
 		Adjust MainTeklaVersion to get IntelliSense for the correct version do a 
 		dotnet restore to restore the correct nuget packages for the selected Tekla version.
 		-->
     
-    <LangVersion>12</LangVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Design'">

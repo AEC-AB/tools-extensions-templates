@@ -1,13 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
     <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>AssistantAutomationExtension</Title>
     <Description>AssistantAutomationExtension Description</Description>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
   <Import Project=".\Configurations.targets" />
-  <PropertyGroup>
-    <LangVersion>12</LangVersion>
-  </PropertyGroup>
+  
 </Project>

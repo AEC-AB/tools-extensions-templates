@@ -9,8 +9,8 @@
 		Adjust MainRevitVersion to get IntelliSense for the correct version do a 
 		dotnet restore to restore the correct nuget packages for the selected Revit version.
 		-->
-		<MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2024</MainRevitVersion>
-    <LangVersion>12</LangVersion>
+		<MainRevitVersion Condition="'$(Configuration)' == 'Debug'">2026</MainRevitVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project="Configurations.targets" />

@@ -10,6 +10,7 @@ This file gives reusable guidance to coding agents working in the generated Tekl
 
 ## Always-on rules
 
+- In the extension `.csproj`, only update `<Title>` and `<Description>` when they still look like defaults (`<Title>` is just the project name without spaces, such as `MyExtension`, and `<Description>` is `MyExtension Description`). In that case, set `<Title>` to a user-friendly name and `<Description>` to a short summary of what the extension does, because this metadata is shown to end users when browsing Assistant extensions.
 - Use `ITeklaExtensionContext` for command execution and the base `IExtensionContext` helpers for `IsDryRun`, variables, and structured JSON output.
 - Pass `cancellationToken` to cancellable work and check it between long-running steps.
 - Use `Result.*` helpers for all outcomes. Prefer `Result.Markdown.*` for execution summaries, diagnostics, and multi-step results.
