@@ -2,10 +2,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Attach to Assistant",
+            "name": "Debug Command",
             "type": "coreclr",
             "request": "attach",
-            "processName": "CW.Assistant.Viewer"
+            "processName": "CW.Assistant.Cli"
+        },
+        {
+            "name": "Debug Args",
+            "type": "coreclr",
+            "request": "attach",
+            "processName": "CW.Assistant.ExtensionParser"
         },
         {
             "name": "Attach to Assistant by process id",
