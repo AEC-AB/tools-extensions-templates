@@ -1,7 +1,6 @@
 ## name: docs-routing
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when you need framework guidance before changing code in the Revit App Extension template
 
-# Insert skill instructions below
 
 # Docs routing
 
@@ -17,3 +16,4 @@ Use the `extension-docs` MCP tool:
 2. `operation=content` using the returned document id
 3. `operation=search` with query `REVIT_APP_EXTENSION.md`
 4. `operation=content` using the returned document id
+

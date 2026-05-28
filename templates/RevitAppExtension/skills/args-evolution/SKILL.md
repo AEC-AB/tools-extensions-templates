@@ -1,7 +1,6 @@
 ## name: args-evolution
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when editing `*Args.cs` in the Revit App Extension template
 
-# Insert skill instructions below
 
 # Args evolution
 
@@ -28,3 +27,4 @@ Use the `extension-docs` MCP tool:
 - Collectors: `IRevitAutoFillCollector<TArgs>`, `IValueCopyRevitCollector<TArgs>`
 - Controls: `ElementSelectorField`, `FilterField`, `ValueCopyField`
 - Use model-driven fields only when the workflow truly depends on active-model values.
+

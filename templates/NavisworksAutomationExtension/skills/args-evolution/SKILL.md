@@ -1,7 +1,6 @@
 ## name: args-evolution
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when editing `*Args.cs` in the Navisworks Automation Extension template
 
-# Insert skill instructions below
 
 # Args evolution
 
@@ -34,3 +33,4 @@ If the answer is yes:
 ## Special controls
 
 No Navisworks-only special controls are required here. Use shared field attributes and the docs for exact options.
+

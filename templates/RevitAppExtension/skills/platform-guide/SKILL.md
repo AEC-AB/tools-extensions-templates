@@ -1,7 +1,6 @@
 ## name: platform-guide
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when editing startup flow, handlers/services, or Revit-specific app behavior
 
-# Insert skill instructions below
 
 # Platform guide
 
@@ -20,3 +19,4 @@ Use the `extension-docs` MCP tool:
 - Keep model writes in short transactions with tight scope.
 - Prefer CQRS handlers and services for model operations instead of pushing API logic into windows or view models.
 - Use Revit collectors or ValueCopy only when the workflow requires model-driven values.
+

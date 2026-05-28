@@ -1,7 +1,6 @@
 ## name: platform-guide
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when editing startup flow, handlers/services, or Tekla-specific app behavior
 
-# Insert skill instructions below
 
 # Platform guide
 
@@ -20,3 +19,4 @@ Use the `extension-docs` MCP tool:
 - Keep Tekla model logic in services and handlers, not views or windows.
 - Use selectors with explicit null checks for selected objects.
 - Commit model changes only after the full operation succeeds.
+

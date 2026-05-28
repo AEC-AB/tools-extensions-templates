@@ -1,7 +1,6 @@
 ## name: mcp-setup
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when the `extension-docs` assistant docs MCP tool is missing or when the agent runtime does not have the assistant MCP server configured
 
-# Insert skill instructions below
 
 # MCP setup
 
@@ -43,3 +42,4 @@ The template includes this example in `.vscode/mcp.json`:
 ## Why this matters
 
 The assistant MCP server exposes the `extension-docs` tool, which gives current guidance for building Assistant extensions.
+

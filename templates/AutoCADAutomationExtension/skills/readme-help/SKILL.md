@@ -1,7 +1,6 @@
 ## name: readme-help
-description: Replace with description of the skill and when Claude should use it.
+description: Use this skill when updating `README.md` for end users
 
-# Insert skill instructions below
 
 # README help
 
@@ -19,3 +18,4 @@ Use the `extension-docs` MCP tool:
 - Turn `README.md` into an end-user guide before delivery.
 - Document prerequisites, configuration fields, expected outputs, and important limitations.
 - Include the exact user actions needed to recover from common configuration or runtime failures.
+
