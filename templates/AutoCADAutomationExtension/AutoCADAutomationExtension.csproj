@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ExtensionId>AutoCADAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>AutoCADAutomationExtension</Title>

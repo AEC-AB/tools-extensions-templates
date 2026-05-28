@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <ExtensionId>AssistantAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
     <Version>0.0.1</Version>
     <Title>AssistantAutomationExtension</Title>
