@@ -7,7 +7,7 @@ public class NavisworksAutomationExtensionArgs
     [StringLength(100, MinimumLength = 3, ErrorMessage = "Text input must be between 3 and 100 characters.")]
     public string TextInput { get; set; } = "Default input";
 
-    [BooleanField(Label = "Show advanced options")]
+    [BooleanField(Label = "Show hidden field")]
     public bool ShowAdvanced { get; set; }
 
     [IntegerField(Label = "Retry count", ToolTip = "Number of retries for transient failures", MinimumValue = 0, MaximumValue = 10, Visibility = nameof(ShowAdvanced))]

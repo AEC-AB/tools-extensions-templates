@@ -7,7 +7,7 @@ public class RevitAppExtensionArgs
     [StringLength(200, MinimumLength = 3, ErrorMessage = "Initial comment must be between 3 and 200 characters.")]
     public string? InitialComment { get; set; }
 
-    [BooleanField(Label = "Show advanced options")]
+    [BooleanField(Label = "Show hidden field")]
     public bool ShowAdvanced { get; set; }
 
     [IntegerField(Label = "Retry count", ToolTip = "Number of retries for transient failures", MinimumValue = 0, MaximumValue = 10, Visibility = nameof(ShowAdvanced))]
