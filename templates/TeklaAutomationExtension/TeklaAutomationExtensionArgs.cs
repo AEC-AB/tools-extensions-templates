@@ -8,9 +8,9 @@ public class TeklaAutomationExtensionArgs
     public string TextInput { get; set; } = "Default input";
 
     [BooleanField(Label = "Show hidden field")]
-    public bool ShowAdvanced { get; set; }
+    public bool ShowHiddenField { get; set; }
 
-    [IntegerField(Label = "Retry count", ToolTip = "Number of retries for transient failures", MinimumValue = 0, MaximumValue = 10, Visibility = nameof(ShowAdvanced))]
+    [IntegerField(Label = "Retry count", ToolTip = "Number of retries for transient failures", MinimumValue = 0, MaximumValue = 10, Visibility = nameof(ShowHiddenField))]
     [Range(0, 10, ErrorMessage = "Retry count must be between 0 and 10.")]
     public int RetryCount { get; set; } = 3;
 }
