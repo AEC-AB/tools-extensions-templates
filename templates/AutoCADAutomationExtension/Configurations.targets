@@ -81,13 +81,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>$(ExtensionId).$(MainAutoCADVersion).$(Version)</AssemblyName>
+    <AssemblyName>$(MSBuildProjectName).$(MainAutoCADVersion).$(Version)</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>$(ExtensionId).$(MainAutoCADVersion)</PackageId>
-  </PropertyGroup>
-
+  
   <Choose>
     <When Condition="'$(TargetFramework)' == 'net48'">
       <ItemGroup >

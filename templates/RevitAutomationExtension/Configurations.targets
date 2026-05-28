@@ -80,12 +80,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AssemblyName>$(ExtensionId).$(MainRevitVersion).$(Version)</AssemblyName>
+		<AssemblyName>$(MSBuildProjectName).$(MainRevitVersion).$(Version)</AssemblyName>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<PackageId>$(ExtensionId).$(MainRevitVersion)</PackageId>
-	</PropertyGroup>
 
 	<Choose>
 		<When Condition="'$(TargetFramework)' == 'net48'">
