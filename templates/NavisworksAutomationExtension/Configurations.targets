@@ -73,13 +73,10 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <AssemblyName>$(ExtensionId).$(MainNavisworksVersion).$(Version)</AssemblyName>
+    <AssemblyName>$(MSBuildProjectName).$(MainNavisworksVersion).$(Version)</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <PackageId>$(ExtensionId).$(MainNavisworksVersion)</PackageId>
-  </PropertyGroup>
-
+  
   <Choose>
     <When Condition="$([System.String]::Equals('$(MainNavisworksVersion)', '2019')) Or $([System.String]::Equals('$(MainNavisworksVersion)', '2020')) Or $([System.String]::Equals('$(MainNavisworksVersion)', '2021')) Or $([System.String]::Equals('$(MainNavisworksVersion)', '2022'))">
       <ItemGroup>

@@ -10,12 +10,9 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<AssemblyName>$(ExtensionId).$(Version)</AssemblyName>
+		<AssemblyName>$(MSBuildProjectName).$(Version)</AssemblyName>
 	</PropertyGroup>
 
-	<PropertyGroup>
-		<PackageId>$(ExtensionId)</PackageId>
-	</PropertyGroup>
 
 
 	<ItemGroup>
