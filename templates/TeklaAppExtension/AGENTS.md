@@ -11,7 +11,6 @@ This file gives reusable guidance to coding agents working in the generated Tekl
 
 ## Always-on rules
 
-- In the extension `.csproj`, only update `<Title>` and `<Description>` when they still look like defaults (`<Title>` is just the project name without spaces, such as `MyExtension`, and `<Description>` is `MyExtension Description`). In that case, set `<Title>` to a user-friendly name and `<Description>` to a short summary of what the extension does, because this metadata is shown to end users when browsing Assistant extensions.
 - Keep host API work out of windows and views.
 - Use `Result.*` helpers for user-facing outcomes.
 - Do not catch `Exception` or `OperationCanceledException`.

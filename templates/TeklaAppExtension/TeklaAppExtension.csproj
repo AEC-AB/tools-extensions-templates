@@ -2,9 +2,6 @@
 
   <PropertyGroup>
 	<Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
-    <Title>TeklaAppExtension</Title>
-    <Description>TeklaAppExtension Description</Description>
 	<MainTeklaVersion Condition="'$(Configuration)' == 'Debug'">2026</MainTeklaVersion>
     <!-- 
 		Adjust MainTeklaVersion to get IntelliSense for the correct version do a 

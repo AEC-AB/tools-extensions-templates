@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
-    <Title>RevitAutomationExtension</Title>
-    <Description>RevitAutomationExtension Description</Description>
     <!-- 
     Adjust MainRevitVersion to get IntelliSense for the correct version do a 
     dotnet restore to restore the correct nuget packages for the selected Revit version.

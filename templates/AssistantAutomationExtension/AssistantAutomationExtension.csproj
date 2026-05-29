@@ -2,9 +2,6 @@
   
   <PropertyGroup>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
-    <Title>AssistantAutomationExtension</Title>
-    <Description>AssistantAutomationExtension Description</Description>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 

@@ -2,9 +2,6 @@
 
   <PropertyGroup>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
-    <Title>NavisworksAutomationExtension</Title>
-    <Description>NavisworksAutomationExtension Description</Description>
     <!-- 
     Adjust MainNavisworksVersion to get IntelliSense for the correct version do a 
     dotnet restore to restore the correct nuget packages for the selected Navisworks version.
