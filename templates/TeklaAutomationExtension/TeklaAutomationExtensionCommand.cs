@@ -2,26 +2,22 @@ namespace TeklaAutomationExtension;
 
 public class TeklaAutomationExtensionCommand : ITeklaExtension<TeklaAutomationExtensionArgs>
 {
+    // Entry point for Tekla extensions. Verify model connectivity, then run your workflow.
     public IExtensionResult Run(ITeklaExtensionContext context, TeklaAutomationExtensionArgs args, CancellationToken cancellationToken)
     {
-        // The Model class represents a single model open in Tekla Structures.
-        // Before interaction with the model, the user will have to create one
-        // instance of this class.
+        // Open connection to the active Tekla model.
         var model = new Model();
 
         if (!model.GetConnectionStatus())
             return Result.Text.Failed("Tekla has no active model open");
 
-        // The ModelHandler class provides information about the currently open Tekla Structures
+        // Access model metadata/services when needed.
         var modelHandler = new ModelHandler();
 
-        // Get selected objects in model
+        // Read the current selection (replace with your real processing).
         var selectedObjects = new Tekla.Structures.Model.UI.ModelObjectSelector().GetSelectedObjects();
-        
-        // Create a message with the input text
-        var message = $"Input = {args.TextInput}";
 
-        // Return a result with the message
+        var message = $"Input = {args.TextInput}";
         return Result.Text.Succeeded(message);
     }
 }

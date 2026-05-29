@@ -158,23 +158,20 @@
   <Choose>
     <When Condition="$(Configuration.Contains('Design'))">
       <PropertyGroup>
-        <AssemblyName>$(ExtensionId)</AssemblyName>
+        <AssemblyName>$(MSBuildProjectName)</AssemblyName>
         <OutputPath>.\bin\Design\</OutputPath>
         <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
       </PropertyGroup>
     </When>
     <Otherwise>
       <PropertyGroup>
-        <AssemblyName>$(ExtensionId).$(MainTeklaVersion).$(Version)</AssemblyName>
+        <AssemblyName>$(MSBuildProjectName).$(MainTeklaVersion).$(Version)</AssemblyName>
       </PropertyGroup>
     </Otherwise>
   </Choose>
 
 
-  <PropertyGroup>
-    <PackageId>$(ExtensionId).$(MainTeklaVersion)</PackageId>
-  </PropertyGroup>
-
+  
 
 
 </Project>
