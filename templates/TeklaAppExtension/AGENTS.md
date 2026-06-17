@@ -16,12 +16,12 @@ This file gives reusable guidance to coding agents working in the generated Tekl
 - Do not catch `Exception` or `OperationCanceledException`.
 - Keep comments short and rely on clear naming plus docs for deeper explanations.
 - Start docs and implementation tasks by using the `extension-docs` assistant docs MCP tool for current Assistant extension guidance.
-- If the tool is unavailable, use `skills/mcp-setup/SKILL.md` to restore the assistant MCP server in the active agent framework before continuing.
+- If the tool is unavailable, use `.agents/skills/mcp-setup/SKILL.md` to restore the assistant MCP server in the active agent framework before continuing.
 - Use the skills below when the task is focused on docs lookup, `*Args.cs` evolution, or platform-specific app behavior.
 
 ## Skills
 
-- `skills/docs-routing/SKILL.md` - start here to load the core app-extension docs for this template.
-- `skills/mcp-setup/SKILL.md` - restore the assistant MCP server when `extension-docs` is unavailable.
-- `skills/args-evolution/SKILL.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
-- `skills/platform-guide/SKILL.md` - apply when changing startup flow, handlers/services, or platform API behavior.
+- `.agents/skills/docs-routing/SKILL.md` - start here to load the core app-extension docs for this template.
+- `.agents/skills/mcp-setup/SKILL.md` - restore the assistant MCP server when `extension-docs` is unavailable.
+- `.agents/skills/args-evolution/SKILL.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
+- `.agents/skills/platform-guide/SKILL.md` - apply when changing startup flow, handlers/services, or platform API behavior.
