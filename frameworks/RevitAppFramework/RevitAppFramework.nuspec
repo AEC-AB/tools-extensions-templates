@@ -13,7 +13,7 @@
 		<tags>Revit wpf Assistant</tags>
 		<dependencies>
 				<dependency id="MVVMFluent.WPF" version="0.0.2" />
-			<dependency id="WPF-UI" version="4.0.2" />
+			<dependency id="WPF-UI" version="4.3.0" />
 		</dependencies>
 	</metadata>	
 	<files>
