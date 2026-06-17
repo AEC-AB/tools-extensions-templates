@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<PlatformTarget>x64</PlatformTarget>
-		<LangVersion>12</LangVersion>
+		<LangVersion>latest</LangVersion>
 		<DebugType>portable</DebugType>
 		<Nullable>enable</Nullable>
 		<NoWarn>NU1701</NoWarn>

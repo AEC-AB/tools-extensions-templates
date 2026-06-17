@@ -1,6 +1,4 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
     "version": "2.0.0",
     "tasks": [
         {
@@ -60,6 +58,26 @@
                 "publish",
                 "-c",
                 "Debug 2024"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Navisworks 2025",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2025"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Navisworks 2026",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2026"
             ],
             "group": "build"
         }

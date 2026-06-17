@@ -1,26 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <ExtensionId>AutoCADAutomationExtension</ExtensionId>
     <Authors>AEC AB</Authors>
-    <Version>0.0.1</Version>
-    <Title>AutoCADAutomationExtension</Title>
-    <Description>AutoCADAutomationExtension Description</Description>
-    <PackageTags>AutoCAD;Assistant;Extension</PackageTags>
-    <PackageIcon>Icon.png</PackageIcon>
-    <PackageIconUrl></PackageIconUrl>
     <!-- 
 		Adjust MainAutoCADVersion to get IntelliSense for the correct version do a 
 		dotnet restore to restore the correct nuget packages for the selected AutoCAD version.
 		-->
-		<MainAutoCADVersion Condition="'$(Configuration)' == 'Debug'">2024</MainAutoCADVersion>
-    <LangVersion>12</LangVersion>
+		<MainAutoCADVersion Condition="'$(Configuration)' == 'Debug'">2026</MainAutoCADVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <Import Project=".\Configurations.targets" />
-
-  <ItemGroup>
-    <None Include="Icon.png" Pack="true" PackagePath="" />
-  </ItemGroup>
 
 </Project>

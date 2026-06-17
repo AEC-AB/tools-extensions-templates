@@ -85,21 +85,18 @@
 	<Choose>
 		<When Condition="$(Configuration.Contains('Design'))">
 			<PropertyGroup>
-				<AssemblyName>$(ExtensionId)</AssemblyName>
+				<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 				<OutputPath>.\bin\Design\</OutputPath>
 				<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
-				<AssemblyName>$(ExtensionId).$(MainRevitVersion).$(Version)</AssemblyName>
+				<AssemblyName>$(MSBuildProjectName).$(MainRevitVersion).$(Version)</AssemblyName>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
 
-	<PropertyGroup>
-		<PackageId>$(ExtensionId).$(MainRevitVersion)</PackageId>
-	</PropertyGroup>
 
 	<Choose>
 		<When Condition="'$(TargetFramework)' == 'net48'">

@@ -1,0 +1,28 @@
+<Solution>
+  <Folder Name="/frameworks/">
+    <Project Path="frameworks/RevitAppFramework/RevitAppFramework.csproj">
+      <BuildType Solution="Release|*" Project="Release 2019" />
+    </Project>
+  </Folder>
+  <Folder Name="/templates/">
+    <Project Path="templates/AutoCADAutomationExtension/AutoCADAutomationExtension.csproj">
+      <BuildType Solution="Debug|*" Project="Debug 2019" />
+      <BuildType Solution="Release|*" Project="Release 2019" />
+    </Project>
+    <Project Path="templates/NavisworksAutomationExtension/NavisworksAutomationExtension.csproj">
+      <BuildType Solution="Debug|*" Project="Debug 2019" />
+      <BuildType Solution="Release|*" Project="Release 2019" />
+    </Project>
+    <Project Path="templates/RevitAppExtension/RevitAppExtension.csproj">
+      <BuildType Solution="Debug|*" Project="Design" />
+    </Project>
+    <Project Path="templates/RevitAutomationExtension/RevitAutomationExtension.csproj">
+      <BuildType Solution="Debug|*" Project="Debug 2019" />
+      <BuildType Solution="Release|*" Project="Release 2019" />
+    </Project>
+    <Project Path="templates/TeklaAutomationExtension/TeklaAutomationExtension.csproj">
+      <BuildType Solution="Release|*" Project="Release 2020" />
+    </Project>
+  </Folder>
+  <Project Path="Assistant.Extensions.Templates.csproj" />
+</Solution>
