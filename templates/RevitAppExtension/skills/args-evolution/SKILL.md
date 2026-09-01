@@ -6,15 +6,9 @@ description: Use this skill when editing `*Args.cs` in the Revit App Extension t
 
 Use this skill when editing `*Args.cs` in the Revit App Extension template.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=search` with query `ARGS_DEVELOPER_GUIDE.md`
-2. `operation=content` using the returned document id
-3. `operation=search` with query `args versioning upgrades`
-4. `operation=content` using the returned document id
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Upgrade rules
 
 1. Add or bump `[ArgsVersion(N)]` when you change the persisted Args shape.

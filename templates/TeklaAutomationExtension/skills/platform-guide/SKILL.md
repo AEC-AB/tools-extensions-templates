@@ -6,13 +6,9 @@ description: Use this skill when editing `*Command.cs`, collector code, or Tekla
 
 Use this skill when editing `*Command.cs`, collector code, or Tekla-specific runtime logic.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=content` with document id `tekla`
-2. `operation=search` with focused topics such as `model connection` when you need examples
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## API context
 
 - Create a `Model` and verify the connection with `GetConnectionStatus()`.

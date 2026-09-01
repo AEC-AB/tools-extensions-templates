@@ -1,19 +1,15 @@
-## name: docs-routing
-description: Use this skill when you need framework guidance before changing code in the Revit App Extension template
-
+---
+name: docs-routing
+description: Use when extension framework guidance is needed before changing code.
+---
 
 # Docs routing
 
-Use this skill when you need framework guidance before changing code in the Revit App Extension template.
+1. Open the active project's obj/project.assets.json. Restore the project if it is missing.
+2. In libraries, find CW.Assistant.ExtensionDocs.Bundle/<version>. Use that resolved version.
+3. Append cw.assistant.extensiondocs.bundle/<version>/contentFiles/any/any/Resources/ExtensionDocs to each local package root in packageFolders.
+4. Use the first existing directory as ExtensionDocsRoot. If none exists, restore is incomplete.
 
-If the `extension-docs` assistant docs MCP tool is unavailable, use `../mcp-setup/SKILL.md` first to restore the assistant MCP server in the active agent framework.
+Read Markdown directly from ExtensionDocsRoot. Do not substitute another version when restore has not produced the bundle.
 
-## Load these docs first
-
-Use the `extension-docs` MCP tool:
-
-1. `operation=search` with query `APP_EXTENSION_DEVELOPER_GUIDE.md`
-2. `operation=content` using the returned document id
-3. `operation=search` with query `REVIT_APP_EXTENSION.md`
-4. `operation=content` using the returned document id
-
+After resolving `ExtensionDocsRoot`, read `ExtensionDocsRoot/AGENT.md` for the canonical reading order and platform guide selection.

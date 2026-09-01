@@ -6,13 +6,9 @@ description: Use this skill when editing `*Command.cs`, collector code, or Assis
 
 Use this skill when editing `*Command.cs`, collector code, or Assistant-specific runtime logic.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=content` with document id `assistant`
-2. `operation=search` with focused topics such as `assistant variables` or `dry run` when you need a narrower example
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Platform scope
 
 Use this template for:

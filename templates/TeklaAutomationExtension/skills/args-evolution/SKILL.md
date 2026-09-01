@@ -6,14 +6,9 @@ description: Use this skill when editing `*Args.cs` in the Tekla Automation Exte
 
 Use this skill when editing `*Args.cs` in the Tekla Automation Extension template.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=content` with document id `args-developer-guide`
-2. `operation=search` with query `args versioning upgrades`
-3. `operation=content` using the returned document id
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Upgrade rules
 
 Before changing the `*Args.cs` structure, ask whether the Args class may already be used in production workflows.
