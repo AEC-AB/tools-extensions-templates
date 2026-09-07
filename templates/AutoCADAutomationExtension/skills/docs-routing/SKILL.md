@@ -1,15 +1,53 @@
 ---
 name: docs-routing
-description: Use when extension framework guidance is needed before changing code.
+description: Resolve the restored ExtensionDocs bundle before using extension guidance.
 ---
 
 # Docs routing
 
-1. If the active project's obj/project.assets.json is missing, restore the project first. Then search the file for the libraries entry CW.Assistant.ExtensionDocs.Bundle/<version> (for example, `rg -n '"CW\.Assistant\.ExtensionDocs\.Bundle/' obj/project.assets.json`) and capture the exact resolved version without reading the whole file.
-2. Use that resolved version.
-3. Append cw.assistant.extensiondocs.bundle/<version>/contentFiles/any/any/Resources/ExtensionDocs to each local package root in packageFolders.
-4. Use the first existing directory as ExtensionDocsRoot. If none exists, restore is incomplete.
+Resolve the documentation root before reading platform guidance.
 
-Read Markdown directly from ExtensionDocsRoot. Do not substitute another version when restore has not produced the bundle.
+1. Identify the active project file (.csproj) and work from its directory. Ensure obj/project.assets.json exists; if it is missing, run:
 
-After resolving `ExtensionDocsRoot`, read `ExtensionDocsRoot/AGENT.md` for the canonical reading order and platform guide selection.
+~~~powershell
+dotnet restore "<project.csproj>"
+~~~
+
+2. Query the generated documentation path first:
+
+~~~powershell
+dotnet msbuild "<project.csproj>" -getProperty:CWAssistantExtensionDocsPath
+~~~
+
+Record the raw property result. Resolve a relative value against the project directory. Accept the value only when it is an existing directory containing AGENT.md; use it as ExtensionDocsRoot.
+
+3. When the property is empty or fails that validation, use the active restore metadata:
+
+- Search only obj/project.assets.json for CW.Assistant.ExtensionDocs.Bundle/ and capture the exact resolved version from the library key (for example, CW.Assistant.ExtensionDocs.Bundle/1.0.38).
+- Search the same file for packageFolders and capture every package root.
+- For each package root, construct:
+
+~~~text
+<packageRoot>/cw.assistant.extensiondocs.bundle/<resolvedVersion>/contentFiles/any/any/Resources/ExtensionDocs
+~~~
+
+- Accept a candidate only when it is an existing directory containing AGENT.md; use it as ExtensionDocsRoot.
+
+4. If no candidate passes validation, stop and report all of the following:
+
+- The raw CWAssistantExtensionDocsPath property result.
+- The exact CW.Assistant.ExtensionDocs.Bundle/<version> entry found, or that the bundle entry is missing.
+- Every packageFolders root examined.
+- The resolved platform extension package (for example, CW.Assistant.Extensions.Revit.2026) and CW.Assistant.Extensions.Contracts versions.
+- This recovery guidance:
+
+~~~powershell
+dotnet restore "<project.csproj>" --force-evaluate
+~~~
+
+If the bundle entry remains absent, update the platform/Contracts package reference to a version that declares CW.Assistant.ExtensionDocs.Bundle, then run the restore command again.
+
+5. Read <ExtensionDocsRoot>/AGENT.md and follow its documented reading order. Read the required linked documents before implementing or reviewing extension code.
+
+
+Completion requires an existing ExtensionDocsRoot containing AGENT.md, the exact bundle version sourced from the active project's property or restore metadata, and the AGENT.md reading order completed before code work begins.

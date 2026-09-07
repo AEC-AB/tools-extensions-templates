@@ -123,7 +123,7 @@
   <ItemGroup>
     <PackageReference Include="CW.Assistant.Extensions.Navisworks.$(MainNavisworksVersion)" Version="26.*">
       <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>compile</IncludeAssets>
+      <IncludeAssets>compile; buildTransitive</IncludeAssets>
     </PackageReference>
 
   </ItemGroup>
