@@ -6,13 +6,9 @@ description: Use this skill when updating `README.md` for end users
 
 Use this skill when updating `README.md` for end users.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=search` with query `WRITING_EXTENSION_README_HELP_FILES.md`
-2. `operation=content` using the returned document id
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Delivery rules
 
 - Turn `README.md` into an end-user guide before delivery.

@@ -6,17 +6,17 @@ description: Use this skill when editing `*Args.cs` in the AutoCAD Automation Ex
 
 Use this skill when editing `*Args.cs` in the AutoCAD Automation Extension template.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=content` with document id `args-developer-guide`
-2. `operation=search` with query `args versioning upgrades`
-3. `operation=content` using the returned document id
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Upgrade rules
 
-Before changing the `*Args.cs` structure, ask whether the Args class may already be used in production workflows.
+Newly generated, unshipped Args classes are exempt from the production-use
+question and upgrade ceremony: make structural changes directly without a
+version bump or upgrade mapping.
+
+For an existing or production Args class, ask whether the Args class may
+already be used in production workflows.
 
 If the answer is yes:
 

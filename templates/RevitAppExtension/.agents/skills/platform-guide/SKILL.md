@@ -6,13 +6,9 @@ description: Use this skill when editing startup flow, handlers/services, or Rev
 
 Use this skill when editing startup flow, handlers/services, or Revit-specific app behavior.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=search` with query `REVIT_APP_EXTENSION.md`
-2. `operation=content` using the returned document id
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Platform rules
 
 - Validate the active document from `context.UIApplication.ActiveUIDocument?.Document` before model access.

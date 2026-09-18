@@ -6,13 +6,9 @@ description: Use this skill when editing `*Command.cs`, collector code, or AutoC
 
 Use this skill when editing `*Command.cs`, collector code, or AutoCAD-specific runtime logic.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=content` with document id `autocad`
-2. `operation=search` with focused topics such as `document lock` or `transaction` when you need examples
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## API context
 
 - Access the active document with `Application.DocumentManager.MdiActiveDocument`.

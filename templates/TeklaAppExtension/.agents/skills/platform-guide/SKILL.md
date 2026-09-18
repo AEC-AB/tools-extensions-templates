@@ -6,13 +6,9 @@ description: Use this skill when editing startup flow, handlers/services, or Tek
 
 Use this skill when editing startup flow, handlers/services, or Tekla-specific app behavior.
 
-## Load these docs first
+## Resolve documentation first
 
-Use the `extension-docs` MCP tool:
-
-1. `operation=search` with query `TEKLA_APP_EXTENSION.md`
-2. `operation=content` using the returned document id
-
+Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Platform rules
 
 - Verify `Model().GetConnectionStatus()` before model operations.
