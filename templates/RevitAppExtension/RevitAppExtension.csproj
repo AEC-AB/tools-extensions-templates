@@ -35,7 +35,8 @@
   </Choose>
 
   <ItemGroup>
-		<PackageReference Include="WPF-UI" Version="4.0.2" />
+		<PackageReference Include="WPF-UI" Version="4.3.0" />
+    <None Include="Icon.png" Pack="true" PackagePath="" />
   </ItemGroup>
 
 </Project>

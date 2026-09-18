@@ -15,12 +15,12 @@ This file gives reusable guidance to coding agents working in the generated Assi
 - Use `Result.*` helpers for all outcomes. Prefer `Result.Markdown.*` for execution summaries, diagnostics, and multi-step results.
 - Failure results should state what happened, why it happened when relevant, and exactly what the user should check next.
 - Do not catch `Exception` or `OperationCanceledException`. Catch only expected platform exceptions you can convert into actionable failures.
-- Start implementation tasks with `skills/docs-routing/SKILL.md`. It resolves the offline extension docs bundled with the project's resolved dependency version.
+- Start implementation tasks with `.agents/skills/docs-routing/SKILL.md`. It resolves the offline extension docs bundled with the project's resolved dependency version.
 - Use the skills below when the task is focused on docs lookup, `*Args.cs` evolution, platform-specific runtime behavior, or README authoring.
 
 ## Skills
 
-- `skills/docs-routing/SKILL.md` - resolve the offline NuGet documentation root and load the relevant guidance.
-- `skills/args-evolution/SKILL.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
-- `skills/platform-guide/SKILL.md` - apply when changing `*Command.cs`, collector code, or platform API behavior.
-- `skills/readme-help/SKILL.md` - apply before shipping `README.md` updates.
+- `.agents/skills/docs-routing/SKILL.md` - resolve the offline NuGet documentation root and load the relevant guidance.
+- `.agents/skills/args-evolution/SKILL.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
+- `.agents/skills/platform-guide/SKILL.md` - apply when changing `*Command.cs`, collector code, or platform API behavior.
+- `.agents/skills/readme-help/SKILL.md` - apply before shipping `README.md` updates.

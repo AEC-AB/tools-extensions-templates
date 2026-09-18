@@ -15,11 +15,11 @@ This file gives reusable guidance to coding agents working in the generated Revi
 - Use `Result.*` helpers for user-facing outcomes.
 - Do not catch `Exception` or `OperationCanceledException`.
 - Keep comments short and rely on clear naming plus docs for deeper explanations.
-- Start implementation tasks with `skills/docs-routing/SKILL.md`. It resolves the offline extension docs bundled with the project's resolved dependency version.
+- Start implementation tasks with `.agents/skills/docs-routing/SKILL.md`. It resolves the offline extension docs bundled with the project's resolved dependency version.
 - Use the skills below when the task is focused on docs lookup, `*Args.cs` evolution, or platform-specific app behavior.
 
 ## Skills
 
-- `skills/docs-routing/SKILL.md` - resolve the offline NuGet documentation root and load the core app-extension guidance.
-- `skills/args-evolution/SKILL.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
-- `skills/platform-guide/SKILL.md` - apply when changing startup flow, handlers/services, or platform API behavior.
+- `.agents/skills/docs-routing/SKILL.md` - resolve the offline NuGet documentation root and load the core app-extension guidance.
+- `.agents/skills/args-evolution/SKILL.md` - apply when editing `*Args.cs`, upgrades, collectors, or field metadata.
+- `.agents/skills/platform-guide/SKILL.md` - apply when changing startup flow, handlers/services, or platform API behavior.
