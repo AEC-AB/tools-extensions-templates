@@ -72,6 +72,26 @@
       "group": "build"
     },
     {
+      "label": "Revit 2026",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "-c",
+        "Debug 2026"
+      ],
+      "group": "build"
+    },
+    {
+      "label": "Revit 2027",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "-c",
+        "Debug 2027"
+      ],
+      "group": "build"
+    },
+    {
       "label": "build (Design)",
       "type": "shell",
       "command": "dotnet",
