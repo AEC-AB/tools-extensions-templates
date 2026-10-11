@@ -10,11 +10,8 @@ public static class ServiceFactory
 {
     public static global::System.IServiceProvider Create(global::System.Action<global::Microsoft.Extensions.DependencyInjection.IServiceCollection> register)
     {
-        
-
-        // Register services
         var services = new global::Microsoft.Extensions.DependencyInjection.ServiceCollection();
-        
+
         services.AddFrameworkServices();
 
         register(services);

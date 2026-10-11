@@ -2,6 +2,7 @@ namespace NavisworksAutomationExtension;
 
 public class NavisworksAutomationExtensionCommand : INavisworksExtension<NavisworksAutomationExtensionArgs>
 {
+    // Entry point for Navisworks extensions. Read model state and return a concise result.
     public IExtensionResult Run(INavisworksExtensionContext context, NavisworksAutomationExtensionArgs args, CancellationToken cancellationToken)
     {
         var document = Application.ActiveDocument;
@@ -9,20 +10,15 @@ public class NavisworksAutomationExtensionCommand : INavisworksExtension<Naviswo
         if (document is null)
             return Result.Text.Failed("Navisworks has no active model open");
 
-        // Get selected element ids in model
         var selectedObjects = document.CurrentSelection.SelectedItems;
 
-        // Loop through selected elements
+        // Iterate selected items (replace with your real processing).
         foreach (var selectedObject in selectedObjects)
         {
-            // Get the element name
             var elementName = selectedObject.DisplayName;
         }
 
-        // Create a message with the input text
         var message = $"Input = {args.TextInput}";
-
-        // Return a result with the message
         return Result.Text.Succeeded(message);
     }
 }

@@ -26,7 +26,6 @@ public class AboutViewModel(ISnackbarService snackbarService) : ViewModelBase
         }
         catch (Exception ex)
         {
-            // Display error notification using the snackbar service
             snackbarService.Show("Error", $"Failed to open wiki: {ex.Message}", ControlAppearance.Danger);
         }
     }

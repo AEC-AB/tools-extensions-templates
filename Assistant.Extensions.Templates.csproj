@@ -22,25 +22,4 @@
     <None Include="README.md" pack="true" PackagePath="." />
   </ItemGroup>
 
-  <Target Name="SyncUiCommonInstructions" BeforeTargets="Pack">
-    <ItemGroup>
-      <TemplateInstructionRoots Include="templates\**\.github\instructions\platform.instructions.md"
-        Exclude="templates\_shared\**" />
-      <UiCommonDestinations
-        Include="@(TemplateInstructionRoots->'%(RootDir)%(Directory)ui-common.instructions.md')" />
-      <UiCommonSources
-        Include="@(UiCommonDestinations->'$(MSBuildProjectDirectory)\templates\_shared\.github\instructions\ui-common.instructions.md')" />
-      <CommonDestinations
-        Include="@(TemplateInstructionRoots->'%(RootDir)%(Directory)common.instructions.md')" />
-      <CommonSources
-        Include="@(CommonDestinations->'$(MSBuildProjectDirectory)\templates\_shared\.github\instructions\common.instructions.md')" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(UiCommonSources)"
-      DestinationFiles="@(UiCommonDestinations)"
-      SkipUnchangedFiles="true" />
-    <Copy SourceFiles="@(CommonSources)"
-      DestinationFiles="@(CommonDestinations)"
-      SkipUnchangedFiles="true" />
-  </Target>
 </Project>

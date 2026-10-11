@@ -90,11 +90,9 @@ public static class WindowHandler
 
         private void SetWindowPos()
         {
-            // Set our window (hwndTarget) to be positioned in front of hWnd
             uint SWP_NOACTIVATE = 0x0010;
             uint SWP_NOMOVE = 0x0002;
             uint SWP_NOSIZE = 0x0001;
-            //SetWindowPos(hWndInsertAfter, hWnd, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
             SetWindowPos(_teklaMainWindowHandle, _thisHandle, 0, 0, 0, 0, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE);
         }
 

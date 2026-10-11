@@ -1,8 +1,21 @@
 # RevitAutomationExtension Developer Guide
 
+## README Purpose (Template Stage)
+
+This README is an initial template guide for developers and AI agents while the extension is being built.
+
+Before delivery, replace this README entirely with an end-user guide that explains how engineers and architects should use the extension.
+
+Use this guide for required structure and quality expectations:
+https://github.com/AEC-AB/tools-extensions-public/blob/main/docs/WRITING_EXTENSION_README_HELP_FILES.md
+
 ## Introduction
 
 The RevitAutomationExtension is a framework for developing extensions that automate tasks within Autodesk Revit. This guide provides a comprehensive overview of how to develop, customize, and deploy Revit extensions using this template.
+
+## Documentation
+
+https://github.com/AEC-AB/tools-extensions-public/docs/README.md
 
 ## Core Components
 

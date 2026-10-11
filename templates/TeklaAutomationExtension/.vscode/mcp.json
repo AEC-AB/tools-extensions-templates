@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "assistant": {
+      "type": "stdio",
+      "command": "assistant",
+      "args": [
+        "mcp"
+      ]
+    }
+  }
+}

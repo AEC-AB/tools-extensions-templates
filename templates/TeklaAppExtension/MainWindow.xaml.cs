@@ -20,9 +20,6 @@ using Wpf.Ui.Controls;
 
 namespace TeklaAppExtension
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : FluentWindow
     {
         public MainWindow(IServiceProvider serviceProvider, IContentDialogService contentDialogService, ISnackbarService snackbarService)
@@ -43,22 +40,17 @@ namespace TeklaAppExtension
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            
-            // Remove the event handler to ensure it only runs once
             this.Loaded -= MainWindow_Loaded;
 
             try
             {
                 NavView.AttachGlobalResourcesToNavigationView();
 
-                // Find the first navigation item with a valid target page and navigate to it
                 if (NavView.MenuItems.OfType<NavigationViewItem>().FirstOrDefault(x => x.TargetPageType is not null) is { } navViewItem)
                     NavView.Navigate(navViewItem.TargetPageType!);
             }
             catch (Exception)
             {
-                // Navigation failures are ignored to prevent the application from crashing
-                // In a production app, you might want to log this exception or handle it differently
             }
         }
     }
