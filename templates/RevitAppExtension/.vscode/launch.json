@@ -14,6 +14,18 @@
       "processId": "${command:pickProcess}"
     },
     {
+      "name": "Attach to Revit (.NET 8+)",
+      "type": "coreclr",
+      "request": "attach",
+      "processName": "Revit"
+    },
+    {
+      "name": "Attach Process Id (.NET 8+)",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}"
+    },
+    {
       "name": "Launch In Design Mode",
       "preLaunchTask": "build (Design)",
       "type": "coreclr",

@@ -12,6 +12,18 @@
             "type": "clr",
             "request": "attach",
             "processId": "${command:pickProcess}"
+        },
+        {
+            "name": "Attach to AutoCAD (.NET 8+)",
+            "type": "coreclr",
+            "request": "attach",
+            "processName": "acad"
+        },
+        {
+            "name": "Attach Process Id (.NET 8+)",
+            "type": "coreclr",
+            "request": "attach",
+            "processId": "${command:pickProcess}"
         }
     ]
 }

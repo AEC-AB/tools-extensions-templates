@@ -80,6 +80,16 @@
                 "Debug 2026"
             ],
             "group": "build"
+        },
+        {
+            "label": "Navisworks 2027",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2027"
+            ],
+            "group": "build"
         }
     ]
 }

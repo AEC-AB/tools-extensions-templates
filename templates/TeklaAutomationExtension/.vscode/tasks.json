@@ -40,6 +40,46 @@
                 "Debug 2023"
             ],
             "group": "build"
+        },
+        {
+            "label": "Tekla 2024",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2024"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Tekla 2025",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2025"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Tekla 2026",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2026"
+            ],
+            "group": "build"
+        },
+        {
+            "label": "Tekla 2027",
+            "command": "dotnet",
+            "args": [
+                "publish",
+                "-c",
+                "Debug 2027"
+            ],
+            "group": "build"
         }
     ]
 }
