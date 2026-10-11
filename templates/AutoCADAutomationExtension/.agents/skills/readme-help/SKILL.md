@@ -8,7 +8,7 @@ Use this skill when updating `README.md` for end users.
 
 ## Resolve documentation first
 
-Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
+Run `.agents/skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Delivery rules
 
 - Turn `README.md` into an end-user guide before delivery.

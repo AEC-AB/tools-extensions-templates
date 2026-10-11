@@ -8,7 +8,7 @@ Use this skill when editing `*Command.cs`, collector code, or Revit-specific run
 
 ## Resolve documentation first
 
-Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
+Run `.agents/skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## API context
 
 - Access the active document through `context.UIApplication.ActiveUIDocument?.Document`.

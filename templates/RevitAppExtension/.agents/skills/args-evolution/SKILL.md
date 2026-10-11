@@ -8,7 +8,7 @@ Use this skill when editing `*Args.cs` in the Revit App Extension template.
 
 ## Resolve documentation first
 
-Run `skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
+Run `.agents/skills/docs-routing/SKILL.md` to locate `ExtensionDocsRoot`, then read the relevant Markdown file from that directory. The resolved bundle is available offline after restore.
 ## Upgrade rules
 
 Newly generated, unshipped Args classes are exempt from the production-use
